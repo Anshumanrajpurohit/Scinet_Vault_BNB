@@ -1,12 +1,13 @@
 import { forwardRef } from 'react'
 import { motion } from 'framer-motion'
 
-const base = 'inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50 disabled:opacity-50 disabled:cursor-not-allowed'
+const base = 'inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 disabled:opacity-50 disabled:cursor-not-allowed'
 
 const variants = {
   primary: 'gradient-primary text-white shadow-lg shadow-pink-500/10 hover:brightness-110',
   secondary: 'bg-neutral-900/70 border border-white/10 text-white hover:bg-neutral-800',
   ghost: 'bg-transparent text-white hover:bg-white/5',
+  glow: 'relative text-white bg-neutral-900/60 border border-white/10 hover:shadow-[0_0_30px_rgba(252,96,168,0.25)] hover:ring-2 hover:ring-accent/30',
 }
 
 const sizes = {

@@ -1,6 +1,6 @@
 #root {
   /* Let the app span the full viewport; layout handled via Tailwind/classes */
-  /* width: 100%; */
+  width: 100%;
   min-height: 100%;
 }
 

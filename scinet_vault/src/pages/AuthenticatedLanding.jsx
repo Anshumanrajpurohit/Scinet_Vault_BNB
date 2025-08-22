@@ -51,11 +51,11 @@ const AuthenticatedLanding = () => {
   };
 
   return (
-  <div className="bg-gradient-to-br from-black via-slate-900 to-black text-gray-100">
+  <div className="bg-transparent text-gray-100">
       {/* Welcome Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-primary-600 to-purple-600 text-white py-20">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden py-20">
+        {/* Removed opaque gradient; rely on LightRays + glass cards */}
+        <div className="relative   mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -101,7 +101,7 @@ const AuthenticatedLanding = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate('/dashboard')}
-              className="bg-black text-primary-300 border border-white/20 px-8 py-4 rounded-2xl text-lg font-semibold shadow-xl hover:bg-white/10 transition-all duration-300 flex items-center justify-center space-x-2 mx-auto"
+              className="glass-card border border-white/20 px-8 py-4 rounded-2xl text-lg font-semibold shadow-xl transition-all duration-300 flex items-center justify-center space-x-2 mx-auto"
             >
               <span>Go to Dashboard</span>
               <ArrowRight className="h-5 w-5" />
@@ -112,7 +112,7 @@ const AuthenticatedLanding = () => {
 
       {/* Quick Actions */}
       <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div className="  mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -136,7 +136,7 @@ const AuthenticatedLanding = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{ y: -5, scale: 1.02 }}
                 onClick={action.action}
-                className="bg-slate-900 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group border border-white/10"
+                className="glass-card rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group border border-white/10"
               >
                 <div className={`bg-gradient-to-r ${action.color} w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   <action.icon className="h-6 w-6 text-white" />
@@ -154,8 +154,8 @@ const AuthenticatedLanding = () => {
       </section>
 
       {/* Achievements Section */}
-  <section className="py-20 bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section className="py-20">
+        <div className="  mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -179,8 +179,8 @@ const AuthenticatedLanding = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`p-6 rounded-2xl text-center ${
                   achievement.earned 
-                    ? 'bg-slate-900 border-2 border-primary-900/40' 
-                    : 'bg-slate-900 border-2 border-gray-800'
+                    ? 'glass-card border-2 border-primary-900/40' 
+                    : 'glass-card border-2 border-gray-800'
                 }`}
               >
                 <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
@@ -207,7 +207,7 @@ const AuthenticatedLanding = () => {
       </section>
 
       {/* Next Steps */}
-      <section className="py-20 bg-gradient-to-r from-slate-900 to-slate-800 text-white">
+  <section className="py-20 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}

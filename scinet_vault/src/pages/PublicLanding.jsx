@@ -1,9 +1,8 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Database, Users, Zap, CheckCircle, Star } from 'lucide-react';
 import { useAuth } from '../App';
-import BackgroundBeams from '../components/magicui/BackgroundBeams';
-import Aurora from '../components/magicui/Aurora';
+import Prism from './Prism';
+
 
 const PublicLanding = () => {
   const { connectWallet, isLoading } = useAuth();
@@ -50,16 +49,23 @@ const PublicLanding = () => {
   return (
   <div className="min-h-[calc(100vh-4rem)]">{/* ensure above-fold section fills screen minus navbar height */}
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 text-white">
-        <BackgroundBeams />
-        <Aurora />
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-primary-500/30 rounded-full blur-3xl animate-float"></div>
-          <div className="absolute top-40 right-20 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute bottom-20 left-1/3 w-40 h-40 bg-primary-600/25 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }}></div>
-        </div>
+  <section className="relative overflow-hidden text-white">
+    {/* Prism background */}
+    <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
+      <Prism
+        animationType="rotate"
+        timeScale={0.5}
+        height={3.5}
+        baseWidth={5.5}
+        scale={3.6}
+        hueShift={0}
+        colorFrequency={1}
+        noise={0.5}
+        glow={1}
+      />
+    </div>
         
-  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28">
+  <div className="relative z-10   mx-auto px-4 sm:px-6 lg:px-8 py-28 h-screen">
           <div className="text-center">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
@@ -110,18 +116,12 @@ const PublicLanding = () => {
           </div>
         </div>
 
-        {/* Enhanced Floating Elements */}
-        <div className="absolute top-20 left-10 animate-float">
-          <div className="w-16 h-16 bg-primary-500/20 rounded-full blur-xl pulse-ring"></div>
-        </div>
-        <div className="absolute bottom-20 right-10 animate-float" style={{ animationDelay: '3s' }}>
-          <div className="w-24 h-24 bg-purple-500/20 rounded-full blur-xl"></div>
-        </div>
+  {/* Floating elements removed */}
       </section>
 
-      {/* Stats Section */}
-  <section className="py-16 bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {/* Stats Section */}
+  <section className="py-16">
+        <div className="  mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <motion.div
@@ -141,9 +141,9 @@ const PublicLanding = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-  <section className="py-24 bg-gradient-to-b from-slate-900 to-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {/* Features Section */}
+  <section className="py-24">
+        <div className="  mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
@@ -188,9 +188,9 @@ const PublicLanding = () => {
         </div>
       </section>
 
-      {/* Benefits Section */}
-  <section className="py-20 bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {/* Benefits Section */}
+  <section className="py-20">
+        <div className="  mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <motion.h2
@@ -246,8 +246,8 @@ const PublicLanding = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary-600 to-purple-600 text-white">
+  {/* CTA Section */}
+  <section className="py-20 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}

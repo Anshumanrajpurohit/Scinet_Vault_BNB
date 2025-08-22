@@ -20,24 +20,24 @@ const PeerReviews = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h1 className="text-2xl font-bold">Peer Reviews</h1>
       <div className="grid lg:grid-cols-2 gap-6 mt-4">
-        <div className="bg-slate-900 border border-white/10 rounded-2xl p-4">
+  <div className="glass-card border border-white/10 rounded-2xl p-4">
           <h3 className="font-semibold mb-2">Write a Review</h3>
           <form onSubmit={onSubmit} className="space-y-3">
-            <input className="w-full px-3 py-2 rounded bg-black border border-white/10" placeholder="Title" value={title} onChange={(e)=>setTitle(e.target.value)} />
-            <textarea className="w-full px-3 py-2 rounded bg-black border border-white/10" rows={4} placeholder="Your review" value={content} onChange={(e)=>setContent(e.target.value)} />
+            <input className="w-full px-3 py-2 rounded bg-transparent backdrop-blur border border-white/10" placeholder="Title" value={title} onChange={(e)=>setTitle(e.target.value)} />
+            <textarea className="w-full px-3 py-2 rounded bg-transparent backdrop-blur border border-white/10" rows={4} placeholder="Your review" value={content} onChange={(e)=>setContent(e.target.value)} />
             <div>
               <label className="block text-sm mb-1">Rating</label>
-              <input type="number" min={1} max={5} className="w-24 px-3 py-2 rounded bg-black border border-white/10" value={rating} onChange={(e)=>setRating(Number(e.target.value))} />
+              <input type="number" min={1} max={5} className="w-24 px-3 py-2 rounded bg-transparent backdrop-blur border border-white/10" value={rating} onChange={(e)=>setRating(Number(e.target.value))} />
             </div>
             <button className="btn-primary text-white px-4 py-2 rounded-lg">Submit Review</button>
           </form>
         </div>
         <div className="space-y-3">
           {reviews.map(rv => (
-            <div key={rv.id} className="bg-slate-900 border border-white/10 rounded-2xl p-4">
+            <div key={rv.id} className="glass-card border border-white/10 rounded-2xl p-4">
               <div className="text-sm text-gray-400">Rating: {rv.rating} • {rv.createdAt?.slice(0,10)}</div>
               <h4 className="font-semibold mt-1">{rv.title}</h4>
               <p className="text-gray-300 mt-1">{rv.content}</p>

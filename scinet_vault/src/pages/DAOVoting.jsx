@@ -165,8 +165,8 @@ const DAOVoting = () => {
   };
 
   return (
-  <div className="bg-gradient-to-br from-black via-slate-900 to-black py-8 text-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div className="bg-transparent py-8 text-gray-100">
+      <div className="  mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -184,25 +184,25 @@ const DAOVoting = () => {
           transition={{ delay: 0.1 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8"
         >
-          <div className="bg-slate-900 rounded-xl p-6 shadow-lg text-center border border-white/10">
+          <div className="glass-card rounded-xl p-6 shadow-lg text-center border border-white/10">
             <Users className="h-8 w-8 text-blue-500 mx-auto mb-2" />
             <div className="text-2xl font-bold text-gray-900">{daoStats.totalMembers.toLocaleString()}</div>
             <div className="text-sm text-gray-600">DAO Members</div>
           </div>
           
-          <div className="bg-slate-900 rounded-xl p-6 shadow-lg text-center border border-white/10">
+          <div className="glass-card rounded-xl p-6 shadow-lg text-center border border-white/10">
             <Vote className="h-8 w-8 text-green-500 mx-auto mb-2" />
             <div className="text-2xl font-bold text-gray-900">{daoStats.activeProposals}</div>
             <div className="text-sm text-gray-600">Active Proposals</div>
           </div>
           
-          <div className="bg-slate-900 rounded-xl p-6 shadow-lg text-center border border-white/10">
+          <div className="glass-card rounded-xl p-6 shadow-lg text-center border border-white/10">
             <TrendingUp className="h-8 w-8 text-purple-500 mx-auto mb-2" />
             <div className="text-2xl font-bold text-gray-900">{daoStats.totalVotes.toLocaleString()}</div>
             <div className="text-sm text-gray-600">Total Votes Cast</div>
           </div>
           
-          <div className="bg-slate-900 rounded-xl p-6 shadow-lg text-center border border-white/10">
+          <div className="glass-card rounded-xl p-6 shadow-lg text-center border border-white/10">
             <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-2">
               <span className="text-white font-bold text-sm">₿</span>
             </div>
@@ -250,7 +250,7 @@ const DAOVoting = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 + index * 0.1 }}
-                className="bg-slate-900 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/10"
+                className="glass-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/10"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">

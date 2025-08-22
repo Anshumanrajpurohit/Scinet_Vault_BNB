@@ -47,26 +47,26 @@ const Upload = () => {
 	};
 
 	return (
-		<div className="bg-gradient-to-br from-black via-slate-900 to-black py-8 text-gray-100">
+		<div className="bg-transparent py-8 text-gray-100">
 			<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 			<h1 className="text-3xl font-bold text-gray-100 mb-4">Upload Research</h1>
-			<form onSubmit={handleSubmit} className="space-y-4 bg-slate-900 p-6 rounded-2xl border border-white/10">
+			<form onSubmit={handleSubmit} className="space-y-4 glass-card p-6 rounded-2xl border border-white/10">
 					<div>
 						<label className="block text-sm mb-1">Title</label>
-						<input className="w-full px-3 py-2 rounded bg-black border border-white/10" value={title} onChange={(e)=>setTitle(e.target.value)} required />
+						<input className="w-full px-3 py-2 rounded bg-transparent backdrop-blur border border-white/10" value={title} onChange={(e)=>setTitle(e.target.value)} required />
 					</div>
 					<div>
 						<label className="block text-sm mb-1">Description</label>
-						<textarea className="w-full px-3 py-2 rounded bg-black border border-white/10" rows={4} value={description} onChange={(e)=>setDescription(e.target.value)} />
+						<textarea className="w-full px-3 py-2 rounded bg-transparent backdrop-blur border border-white/10" rows={4} value={description} onChange={(e)=>setDescription(e.target.value)} />
 					</div>
 					<div className="grid grid-cols-2 gap-4">
 						<div>
 							<label className="block text-sm mb-1">Authors (comma-separated)</label>
-							<input className="w-full px-3 py-2 rounded bg-black border border-white/10" value={authors} onChange={(e)=>setAuthors(e.target.value)} />
+							<input className="w-full px-3 py-2 rounded bg-transparent backdrop-blur border border-white/10" value={authors} onChange={(e)=>setAuthors(e.target.value)} />
 						</div>
 						<div>
 							<label className="block text-sm mb-1">Category</label>
-							<select className="w-full px-3 py-2 rounded bg-black border border-white/10" value={category} onChange={(e)=>setCategory(e.target.value)}>
+							<select className="w-full px-3 py-2 rounded bg-transparent backdrop-blur border border-white/10" value={category} onChange={(e)=>setCategory(e.target.value)}>
 								{['Computer Science','Biology','Chemistry','Physics','Mathematics','Medicine','Engineering','Environmental Science'].map(c=> <option key={c} value={c}>{c}</option>)}
 							</select>
 						</div>
@@ -74,14 +74,14 @@ const Upload = () => {
 					<div className="grid grid-cols-2 gap-4">
 						<div>
 							<label className="block text-sm mb-1">Type</label>
-							<select className="w-full px-3 py-2 rounded bg-black border border-white/10" value={type} onChange={(e)=>setType(e.target.value)}>
+							<select className="w-full px-3 py-2 rounded bg-transparent backdrop-blur border border-white/10" value={type} onChange={(e)=>setType(e.target.value)}>
 								<option value="paper">Paper</option>
 								<option value="dataset">Dataset</option>
 							</select>
 						</div>
 						<div>
 							<label className="block text-sm mb-1">Tags (comma-separated)</label>
-							<input className="w-full px-3 py-2 rounded bg-black border border-white/10" value={tags} onChange={(e)=>setTags(e.target.value)} />
+							<input className="w-full px-3 py-2 rounded bg-transparent backdrop-blur border border-white/10" value={tags} onChange={(e)=>setTags(e.target.value)} />
 						</div>
 					</div>
 					<div>

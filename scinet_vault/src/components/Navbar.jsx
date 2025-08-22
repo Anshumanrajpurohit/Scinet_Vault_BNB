@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Wallet, Menu, X, Beaker, Home, Upload, Search, User, Vote, MessageSquare, Trophy } from 'lucide-react';
+import { Wallet, Menu, X, Home, Upload, User, Vote, MessageSquare, Trophy, Search } from 'lucide-react';
 import { useAuth } from '../App';
 import logo from '../assets/logo.png';
 
@@ -40,23 +40,23 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="glass-nav bg-black/60 backdrop-blur-lg border-b border-white/10 sticky top-0 z-50 shadow-glass"
+  className="font-sans bg-black/30 backdrop-blur-md border-b border-white/10 fixed top-0 left-0 w-full z-50 shadow-glass"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+      <div className="mx-auto px-8 max-sm:px-6">
+        <div className="flex justify-between items-center py-4">
           {/* Brand */}
-          <Link to={isConnected ? "/dashboard" : "/"} className="flex items-center space-x-3">
+          <Link to={isConnected ? "/dashboard" : "/"} className="flex items-center space-x-3" id="logo">
             <motion.img
               whileHover={{ scale: 1.05 }}
               src={logo}
               alt="SciNet Vault Logo"
-              className="h-8 w-8 rounded-xl object-contain ring-1 ring-white/20"
+              className="h-9 max-md:h-6 max-sm:h-[1.6rem] scale-100 hover:scale-125 duration-75 ease-in-out rounded-xl object-contain ring-1 ring-white/20"
             />
             <span className="text-xl font-bold text-gradient">SciNet Vault</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
+          <nav className="hidden md:flex items-center space-x-8 group">
             {isConnected && navigationItems.map((item) => {
               const active = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
               return (
@@ -64,26 +64,36 @@ const Navbar = () => {
                   <Link
                     to={item.path}
                     aria-current={active ? 'page' : undefined}
-                    className={`flex items-center space-x-2 transition-all duration-300 px-3 py-2 rounded-xl group ${
-                      active ? 'text-primary-300 bg-white/10' : 'text-gray-300 hover:text-primary-400 hover:bg-white/10'
+                    className={`flex items-center space-x-2 transition-all duration-300 px-1 py-2 rounded-xl uppercase tracking-widest text-sm ${
+                      active ? 'text-white' : 'text-gray-300 hover:text-gray-400'
                     }`}
                   >
-                    <item.icon className="h-4 w-4 group-hover:scale-110 transition-transform duration-200" />
+                    <item.icon className="h-4 w-4 opacity-70" />
                     <span className="font-medium">{item.name}</span>
                   </Link>
                 </motion.div>
               );
             })}
-          </div>
+          </nav>
 
-          {/* Wallet Connection Button */}
-          <div className="flex items-center space-x-4">
+          {/* Right Controls: Search, Wallet, Mobile Menu */}
+          <div className="flex items-center gap-4">
+            {/* Search Button (desktop) */}
+            <button
+              className="hidden md:inline-flex items-center justify-center text-2xl text-white/90 hover:text-white"
+              onClick={() => navigate('/explore')}
+              title="Search"
+              aria-label="Search"
+            >
+        
+            </button>
+            {/* Wallet Connection Button */}
             <motion.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleWalletConnect}
               disabled={isLoading}
-              className="btn-primary text-white px-6 py-2.5 rounded-2xl font-semibold shadow-lg hover:shadow-primary transition-all duration-400 flex items-center space-x-2 relative overflow-hidden"
+              className="btn-primary text-white px-6 py-2.5 rounded-2xl font-semibold shadow-lg hover:shadow-primary transition-all duration-400 hidden md:inline-flex items-center space-x-2 relative overflow-hidden"
             >
               <Wallet className="h-4 w-4" />
               <span>
@@ -120,7 +130,7 @@ const Navbar = () => {
                       to={item.path}
                       onClick={() => setIsOpen(false)}
                       className={`flex items-center space-x-3 transition-all duration-300 py-3 px-4 rounded-xl group ${
-                        active ? 'text-primary-300 bg-white/10' : 'text-gray-300 hover:text-primary-400 hover:bg-white/10'
+                        active ? 'text-white bg-white/10' : 'text-gray-300 hover:text-white hover:bg-white/10'
                       }`}
                     >
                       <item.icon className="h-4 w-4 group-hover:scale-110 transition-transform duration-200" />
@@ -129,6 +139,17 @@ const Navbar = () => {
                   </motion.div>
                 );
               })}
+              {/* Mobile wallet button */}
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleWalletConnect}
+                disabled={isLoading}
+                className="w-full mt-2 btn-primary text-white px-6 py-3 rounded-2xl font-semibold flex items-center justify-center space-x-2"
+              >
+                <Wallet className="h-4 w-4" />
+                <span>{isLoading ? 'Connecting...' : isConnected ? formatAddress(walletAddress) : 'Connect Wallet'}</span>
+              </motion.button>
             </div>
           </motion.div>
         )}

@@ -157,16 +157,16 @@ const ResearchExplorer = () => {
   };
 
   return (
-  <div className="bg-gradient-to-br from-black via-slate-900 to-black py-8 text-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="py-8 text-gray-100 bg-transparent">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-8"
         >
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Research Explorer</h1>
-          <p className="text-gray-600">Discover verified research papers and datasets from the global scientific community</p>
+          <h1 className="text-3xl font-bold text-white mb-2">Research Explorer</h1>
+          <p className="text-white">Discover verified research papers and datasets from the global scientific community</p>
         </motion.div>
 
         {/* Search and Filters */}
@@ -174,20 +174,20 @@ const ResearchExplorer = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-slate-900 rounded-2xl p-6 shadow-lg mb-8 border border-white/10"
+          className="glass-card rounded-2xl p-6 shadow-lg mb-8 border border-white/10"
         >
           <div className="grid md:grid-cols-4 gap-4">
             {/* Search */}
             <div className="md:col-span-2">
               <div className="relative">
-                <Search className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search research papers, datasets, authors..."
-                  className="w-full pl-10 pr-4 py-3 border border-white/10 bg-black text-gray-100 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                />
+                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                            <input
+                              type="text"
+                              value={searchQuery}
+                              onChange={(e) => setSearchQuery(e.target.value)}
+                              placeholder="Search research papers, datasets, authors..."
+                              className="w-full pl-10 pr-4 py-3 border border-white/10 bg-transparent backdrop-blur text-gray-100 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                            />
               </div>
             </div>
 
@@ -196,7 +196,7 @@ const ResearchExplorer = () => {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-3 border border-white/10 bg-black text-gray-100 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                            className="w-full px-4 py-3 border border-white/10 bg-transparent backdrop-blur text-gray-100 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 {categories.map(category => (
                   <option key={category} value={category}>
@@ -211,7 +211,7 @@ const ResearchExplorer = () => {
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
-                className="w-full px-4 py-3 border border-white/10 bg-black text-gray-100 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                            className="w-full px-4 py-3 border border-white/10 bg-transparent backdrop-blur text-gray-100 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="all">All Types</option>
                 <option value="paper">Papers</option>
@@ -249,7 +249,7 @@ const ResearchExplorer = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + index * 0.1 }}
-              className="bg-slate-900 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/10"
+              className="glass-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/10"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -352,7 +352,7 @@ const ResearchExplorer = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleDownload(item.id)}
-                    className="bg-gradient-to-r from-primary-600 to-purple-500 text-white px-4 py-2 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-300 flex items-center space-x-2"
+                    className="text-xl px-10 py-4 border-none outline-none rounded-md cursor-pointer uppercase bg-gray-900 text-gray-100 font-bold transition-all duration-600 shadow-[0px_0px_60px_#1f4c65] scale-100 active:scale-95 hover:bg-gradient-to-r hover:from-[rgba(2,29,78,0.681)] hover:to-[rgba(31,215,232,0.873)] hover:text-[#040426] transform origin-center flex items-center space-x-2"
                   >
                     <Download className="h-4 w-4" />
                     <span>Download</span>
@@ -399,7 +399,7 @@ const ResearchExplorer = () => {
             transition={{ delay: 0.6 }}
             className="text-center mt-12"
           >
-            <button className="bg-black text-primary-300 border-2 border-primary-900/40 px-8 py-3 rounded-xl font-semibold hover:bg-white/10 hover:text-white transition-all duration-300">
+            <button className="text-xl px-10 py-4 border-none outline-none rounded-md cursor-pointer uppercase bg-gray-900 text-gray-100 font-bold transition-all duration-600 shadow-[0px_0px_60px_#1f4c65] scale-100 active:scale-95 hover:bg-gradient-to-r hover:from-[rgba(2,29,78,0.681)] hover:to-[rgba(31,215,232,0.873)] hover:text-[#040426] transform origin-center">
               Load More Research
             </button>
           </motion.div>

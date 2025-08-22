@@ -108,14 +108,10 @@ const Dashboard = () => {
   };
 
   return (
-  <div className="bg-gradient-to-br from-black via-slate-900 to-black py-8 relative overflow-hidden text-gray-100">
-      {/* Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
-        <div className="absolute top-20 right-20 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-40 left-10 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }}></div>
-      </div>
+  <div className="bg-transparent py-8 relative overflow-hidden text-gray-100">
+  {/* Background elements removed to let LightRays show through */}
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative   mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -142,7 +138,7 @@ const Dashboard = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="group glass-card rounded-3xl p-6 hover:shadow-xl transition-all duration-500 relative overflow-hidden bg-slate-900 border border-white/10"
+              className="group glass-card rounded-3xl p-6 hover:shadow-xl transition-all duration-500 relative overflow-hidden border border-white/10"
             >
               <div className="flex items-center justify-between">
                 <div>
@@ -182,7 +178,7 @@ const Dashboard = () => {
                 whileHover={{ scale: 1.02, y: -5 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={action.action}
-                className="group glass-card rounded-3xl p-6 hover:shadow-xl transition-all duration-500 cursor-pointer relative overflow-hidden bg-slate-900 border border-white/10"
+                className="group glass-card rounded-3xl p-6 hover:shadow-xl transition-all duration-500 cursor-pointer relative overflow-hidden border border-white/10"
               >
                 <div className={`bg-gradient-to-r ${action.color} w-14 h-14 rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                   <action.icon className="h-7 w-7 text-white" />
@@ -238,7 +234,7 @@ const Dashboard = () => {
           {selectedTab === 'overview' && (
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Recent Papers */}
-              <div className="bg-slate-900 rounded-2xl p-6 shadow-lg border border-white/10">
+              <div className="glass-card rounded-2xl p-6 shadow-lg border border-white/10">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-xl font-bold text-gray-100">Recent Papers</h3>
                   <button className="text-primary-600 hover:text-primary-700 font-medium">
@@ -272,7 +268,7 @@ const Dashboard = () => {
               </div>
 
               {/* Recent Datasets */}
-              <div className="bg-slate-900 rounded-2xl p-6 shadow-lg border border-white/10">
+              <div className="glass-card rounded-2xl p-6 shadow-lg border border-white/10">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-xl font-bold text-gray-100">Recent Datasets</h3>
                   <button className="text-primary-600 hover:text-primary-700 font-medium">
@@ -301,7 +297,7 @@ const Dashboard = () => {
           )}
 
           {selectedTab === 'papers' && (
-            <div className="bg-slate-900 rounded-2xl p-6 shadow-lg border border-white/10">
+            <div className="glass-card rounded-2xl p-6 shadow-lg border border-white/10">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-bold text-gray-100">My Research Papers</h3>
                 <div className="flex items-center space-x-4">
@@ -310,7 +306,7 @@ const Dashboard = () => {
                     <input
                       type="text"
                       placeholder="Search papers..."
-                      className="pl-10 pr-4 py-2 border border-white/10 bg-black text-gray-100 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="pl-10 pr-4 py-2 border border-white/10 bg-transparent text-gray-100 rounded-lg backdrop-blur focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                   </div>
                   <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900">
@@ -322,7 +318,7 @@ const Dashboard = () => {
               
               <div className="space-y-4">
                 {recentPapers.map((paper) => (
-                  <div key={paper.id} className="border border-white/10 rounded-xl p-6 hover:border-primary-300 transition-colors bg-slate-950">
+                  <div key={paper.id} className="glass-card border border-white/10 rounded-xl p-6 hover:border-primary-300 transition-colors">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex-1">
                         <h4 className="text-lg font-semibold text-gray-100 mb-2">{paper.title}</h4>
@@ -361,7 +357,7 @@ const Dashboard = () => {
           )}
 
           {selectedTab === 'datasets' && (
-            <div className="bg-slate-900 rounded-2xl p-6 shadow-lg border border-white/10">
+            <div className="glass-card rounded-2xl p-6 shadow-lg border border-white/10">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-bold text-gray-100">My Datasets</h3>
                 <button className="bg-gradient-to-r from-primary-600 to-purple-500 text-white px-4 py-2 rounded-lg hover:shadow-lg transition-shadow">
@@ -372,7 +368,7 @@ const Dashboard = () => {
               
               <div className="grid md:grid-cols-2 gap-6">
                 {recentDatasets.map((dataset) => (
-                  <div key={dataset.id} className="border border-white/10 rounded-xl p-6 hover:border-primary-300 transition-colors bg-slate-950">
+                  <div key={dataset.id} className="glass-card border border-white/10 rounded-xl p-6 hover:border-primary-300 transition-colors">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex-1">
                         <h4 className="text-lg font-semibold text-gray-100 mb-2">{dataset.name}</h4>

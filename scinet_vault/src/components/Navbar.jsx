@@ -76,17 +76,8 @@ const Navbar = () => {
             })}
           </nav>
 
-          {/* Right Controls: Search, Wallet, Mobile Menu */}
+          {/* Right Controls: Wallet, Mobile Menu */}
           <div className="flex items-center gap-4">
-            {/* Search Button (desktop) */}
-            <button
-              className="hidden md:inline-flex items-center justify-center text-2xl text-white/90 hover:text-white"
-              onClick={() => navigate('/explore')}
-              title="Search"
-              aria-label="Search"
-            >
-        
-            </button>
             {/* Wallet Connection Button */}
             <motion.button
               whileHover={{ scale: 1.05, y: -2 }}

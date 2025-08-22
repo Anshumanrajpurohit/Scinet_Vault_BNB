@@ -102,13 +102,20 @@ const PublicLanding = () => {
                 disabled={isLoading}
                 className="btn-primary text-white px-8 py-4 rounded-2xl text-lg font-semibold shadow-2xl hover:shadow-primary transition-all duration-400 flex items-center justify-center space-x-2 relative overflow-hidden"
               >
-                <span>{isLoading ? 'Connecting...' : 'Connect Wallet & Enter'}</span>
+                <span>{isLoading ? 'Connecting...' : 'Get Started'}</span>
                 <ArrowRight className="h-5 w-5" />
               </motion.button>
               
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 className="btn-secondary text-white px-8 py-4 rounded-2xl text-lg font-semibold backdrop-blur-sm hover:bg-white/10 transition-all duration-300 border-2 border-white/20"
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById('features');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
               >
                 Learn More
               </motion.button>
@@ -142,7 +149,7 @@ const PublicLanding = () => {
       </section>
 
     {/* Features Section */}
-  <section className="py-24">
+  <section id="features" className="py-24 scroll-mt-24">
         <div className="  mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <motion.h2

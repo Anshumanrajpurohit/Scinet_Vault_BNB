@@ -68,7 +68,7 @@ const Quests = () => {
       {/* Header + CTA */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-6">
         <h1 className="text-2xl font-bold">Research Quests</h1>
-        <Link to="/quests/new" className="btn-primary text-white px-4 py-2 rounded-lg">Create Quest</Link>
+        <Link to="/quests/new" className=" text-white px-4 py-2 rounded-lg border-2 border-amber-100 bg-blue-300">Create Quest</Link>
       </div>
 
       {/* Stats and quick filters */}

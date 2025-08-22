@@ -12,7 +12,7 @@ import Footer from './components/Footer';
 import PublicLanding from './pages/PublicLanding';
 import AuthenticatedLanding from './pages/AuthenticatedLanding';
 import Dashboard from './pages/Dashboard';
-import Upload from './pages/Upload.jsx';
+import Upload from './pages/Upload';
 import ResearchExplorer from './pages/ResearchExplorer';
 import Profile from './pages/Profile';
 import DAOVoting from './pages/DAOVoting';
@@ -121,7 +121,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+  <div className="bg-gradient-to-br from-black via-slate-900 to-black text-gray-100">
           <Navbar />
           <AnimatePresence mode="wait">
             <Routes>

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Database, Users, Zap, CheckCircle, Star } from 'lucide-react';
 import { useAuth } from '../App';
+import MagicBackground from '../components/MagicBackground';
 
 const PublicLanding = () => {
   const { connectWallet, isLoading } = useAuth();
@@ -46,16 +47,17 @@ const PublicLanding = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+  <div>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 text-white">
+        <MagicBackground />
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-10 left-10 w-32 h-32 bg-primary-500/30 rounded-full blur-3xl animate-float"></div>
           <div className="absolute top-40 right-20 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
           <div className="absolute bottom-20 left-1/3 w-40 h-40 bg-primary-600/25 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }}></div>
         </div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28">
           <div className="text-center">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
@@ -116,7 +118,7 @@ const PublicLanding = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white">
+  <section className="py-16 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -138,7 +140,7 @@ const PublicLanding = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+  <section className="py-24 bg-gradient-to-b from-slate-900 to-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <motion.h2
@@ -185,14 +187,14 @@ const PublicLanding = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-white">
+  <section className="py-20 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <motion.h2
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+                className="text-4xl md:text-5xl font-bold text-gray-100 mb-6"
               >
                 Why Choose SciNet Vault?
               </motion.h2>
@@ -200,7 +202,7 @@ const PublicLanding = () => {
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-xl text-gray-600 mb-8"
+                className="text-xl text-gray-300 mb-8"
               >
                 Join thousands of researchers who trust our platform for their most important work.
               </motion.p>
@@ -215,7 +217,7 @@ const PublicLanding = () => {
                     className="flex items-center space-x-3"
                   >
                     <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span className="text-gray-700">{benefit}</span>
+                    <span className="text-gray-300">{benefit}</span>
                   </motion.div>
                 ))}
               </div>

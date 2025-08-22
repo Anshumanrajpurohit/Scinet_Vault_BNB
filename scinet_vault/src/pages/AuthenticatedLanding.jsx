@@ -51,7 +51,7 @@ const AuthenticatedLanding = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+  <div className="bg-gradient-to-br from-black via-slate-900 to-black text-gray-100">
       {/* Welcome Hero */}
       <section className="relative overflow-hidden bg-gradient-to-r from-primary-600 to-purple-600 text-white py-20">
         <div className="absolute inset-0 bg-black/10"></div>
@@ -101,7 +101,7 @@ const AuthenticatedLanding = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate('/dashboard')}
-              className="bg-white text-primary-600 px-8 py-4 rounded-2xl text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center space-x-2 mx-auto"
+              className="bg-black text-primary-300 border border-white/20 px-8 py-4 rounded-2xl text-lg font-semibold shadow-xl hover:bg-white/10 transition-all duration-300 flex items-center justify-center space-x-2 mx-auto"
             >
               <span>Go to Dashboard</span>
               <ArrowRight className="h-5 w-5" />
@@ -119,10 +119,10 @@ const AuthenticatedLanding = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-100 mb-4">
               What would you like to do?
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Choose from these popular actions to get started
             </p>
           </motion.div>
@@ -136,13 +136,13 @@ const AuthenticatedLanding = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{ y: -5, scale: 1.02 }}
                 onClick={action.action}
-                className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group"
+                className="bg-slate-900 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group border border-white/10"
               >
                 <div className={`bg-gradient-to-r ${action.color} w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   <action.icon className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{action.title}</h3>
-                <p className="text-gray-600 mb-4">{action.description}</p>
+                <h3 className="text-xl font-bold text-gray-100 mb-2">{action.title}</h3>
+                <p className="text-gray-300 mb-4">{action.description}</p>
                 <div className="flex items-center text-primary-600 font-semibold group-hover:text-purple-600 transition-colors duration-300">
                   <span>Get Started</span>
                   <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
@@ -154,7 +154,7 @@ const AuthenticatedLanding = () => {
       </section>
 
       {/* Achievements Section */}
-      <section className="py-20 bg-white">
+  <section className="py-20 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -162,10 +162,10 @@ const AuthenticatedLanding = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-100 mb-4">
               Your Achievements
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Track your progress in the SciNet Vault ecosystem
             </p>
           </motion.div>
@@ -179,8 +179,8 @@ const AuthenticatedLanding = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`p-6 rounded-2xl text-center ${
                   achievement.earned 
-                    ? 'bg-gradient-to-br from-primary-50 to-purple-50 border-2 border-primary-200' 
-                    : 'bg-gray-50 border-2 border-gray-200'
+                    ? 'bg-slate-900 border-2 border-primary-900/40' 
+                    : 'bg-slate-900 border-2 border-gray-800'
                 }`}
               >
                 <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
@@ -191,7 +191,7 @@ const AuthenticatedLanding = () => {
                   <achievement.icon className="h-8 w-8" />
                 </div>
                 <h3 className={`font-bold mb-2 ${
-                  achievement.earned ? 'text-gray-900' : 'text-gray-500'
+                  achievement.earned ? 'text-gray-100' : 'text-gray-500'
                 }`}>
                   {achievement.label}
                 </h3>

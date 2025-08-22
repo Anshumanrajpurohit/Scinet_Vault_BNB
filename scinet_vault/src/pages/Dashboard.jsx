@@ -108,7 +108,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 py-8 relative overflow-hidden">
+  <div className="bg-gradient-to-br from-black via-slate-900 to-black py-8 relative overflow-hidden text-gray-100">
       {/* Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
         <div className="absolute top-20 right-20 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>
@@ -122,10 +122,10 @@ const Dashboard = () => {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-2">
+          <h1 className="text-4xl font-bold text-gray-100 mb-2">
             Research Dashboard
           </h1>
-          <p className="text-gray-600 text-lg">Welcome back! Here's an overview of your research activity.</p>
+          <p className="text-gray-300 text-lg">Welcome back! Here's an overview of your research activity.</p>
         </motion.div>
 
         {/* Stats Grid */}
@@ -142,12 +142,12 @@ const Dashboard = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="group glass-card rounded-3xl p-6 hover:shadow-xl transition-all duration-500 relative overflow-hidden"
+              className="group glass-card rounded-3xl p-6 hover:shadow-xl transition-all duration-500 relative overflow-hidden bg-slate-900 border border-white/10"
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-600 text-sm font-medium">{stat.label}</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-1">{stat.value}</p>
+                  <p className="text-gray-400 text-sm font-medium">{stat.label}</p>
+                  <p className="text-3xl font-bold text-gray-100 mt-1">{stat.value}</p>
                 </div>
                 <div className={`${stat.color} p-4 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                   <stat.icon className="h-6 w-6 text-white" />
@@ -169,7 +169,7 @@ const Dashboard = () => {
           transition={{ delay: 0.2 }}
           className="mb-8"
         >
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-6">
+          <h2 className="text-2xl font-bold text-gray-100 mb-6">
             Quick Actions
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
@@ -182,13 +182,13 @@ const Dashboard = () => {
                 whileHover={{ scale: 1.02, y: -5 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={action.action}
-                className="group glass-card rounded-3xl p-6 hover:shadow-xl transition-all duration-500 cursor-pointer relative overflow-hidden"
+                className="group glass-card rounded-3xl p-6 hover:shadow-xl transition-all duration-500 cursor-pointer relative overflow-hidden bg-slate-900 border border-white/10"
               >
                 <div className={`bg-gradient-to-r ${action.color} w-14 h-14 rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                   <action.icon className="h-7 w-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{action.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{action.description}</p>
+                <h3 className="text-xl font-bold text-gray-100 mb-2">{action.title}</h3>
+                <p className="text-gray-300 leading-relaxed">{action.description}</p>
                 
                 {/* Hover Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-purple-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
@@ -238,9 +238,9 @@ const Dashboard = () => {
           {selectedTab === 'overview' && (
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Recent Papers */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
+              <div className="bg-slate-900 rounded-2xl p-6 shadow-lg border border-white/10">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-xl font-bold text-gray-900">Recent Papers</h3>
+                  <h3 className="text-xl font-bold text-gray-100">Recent Papers</h3>
                   <button className="text-primary-600 hover:text-primary-700 font-medium">
                     View All
                   </button>
@@ -250,8 +250,8 @@ const Dashboard = () => {
                     <div key={paper.id} className="border-b border-gray-100 last:border-b-0 pb-4 last:pb-0">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <h4 className="font-semibold text-gray-900 mb-1">{paper.title}</h4>
-                          <div className="flex items-center space-x-4 text-sm text-gray-500">
+                          <h4 className="font-semibold text-gray-100 mb-1">{paper.title}</h4>
+                          <div className="flex items-center space-x-4 text-sm text-gray-400">
                             <span className="flex items-center">
                               <Calendar className="h-4 w-4 mr-1" />
                               {paper.date}
@@ -272,9 +272,9 @@ const Dashboard = () => {
               </div>
 
               {/* Recent Datasets */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
+              <div className="bg-slate-900 rounded-2xl p-6 shadow-lg border border-white/10">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-xl font-bold text-gray-900">Recent Datasets</h3>
+                  <h3 className="text-xl font-bold text-gray-100">Recent Datasets</h3>
                   <button className="text-primary-600 hover:text-primary-700 font-medium">
                     View All
                   </button>
@@ -282,8 +282,8 @@ const Dashboard = () => {
                 <div className="space-y-4">
                   {recentDatasets.map((dataset) => (
                     <div key={dataset.id} className="border-b border-gray-100 last:border-b-0 pb-4 last:pb-0">
-                      <h4 className="font-semibold text-gray-900 mb-1">{dataset.name}</h4>
-                      <div className="flex items-center justify-between text-sm text-gray-500">
+                      <h4 className="font-semibold text-gray-100 mb-1">{dataset.name}</h4>
+                      <div className="flex items-center justify-between text-sm text-gray-400">
                         <div className="flex items-center space-x-4">
                           <span>{dataset.size}</span>
                           <span className="flex items-center">
@@ -301,16 +301,16 @@ const Dashboard = () => {
           )}
 
           {selectedTab === 'papers' && (
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
+            <div className="bg-slate-900 rounded-2xl p-6 shadow-lg border border-white/10">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold text-gray-900">My Research Papers</h3>
+                <h3 className="text-xl font-bold text-gray-100">My Research Papers</h3>
                 <div className="flex items-center space-x-4">
                   <div className="relative">
                     <Search className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                     <input
                       type="text"
                       placeholder="Search papers..."
-                      className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="pl-10 pr-4 py-2 border border-white/10 bg-black text-gray-100 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                   </div>
                   <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900">
@@ -322,11 +322,11 @@ const Dashboard = () => {
               
               <div className="space-y-4">
                 {recentPapers.map((paper) => (
-                  <div key={paper.id} className="border border-gray-200 rounded-xl p-6 hover:border-primary-300 transition-colors">
+                  <div key={paper.id} className="border border-white/10 rounded-xl p-6 hover:border-primary-300 transition-colors bg-slate-950">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex-1">
-                        <h4 className="text-lg font-semibold text-gray-900 mb-2">{paper.title}</h4>
-                        <div className="flex items-center space-x-6 text-sm text-gray-500">
+                        <h4 className="text-lg font-semibold text-gray-100 mb-2">{paper.title}</h4>
+                        <div className="flex items-center space-x-6 text-sm text-gray-400">
                           <span className="flex items-center">
                             <Calendar className="h-4 w-4 mr-1" />
                             {paper.date}
@@ -361,9 +361,9 @@ const Dashboard = () => {
           )}
 
           {selectedTab === 'datasets' && (
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
+            <div className="bg-slate-900 rounded-2xl p-6 shadow-lg border border-white/10">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold text-gray-900">My Datasets</h3>
+                <h3 className="text-xl font-bold text-gray-100">My Datasets</h3>
                 <button className="bg-gradient-to-r from-primary-600 to-purple-500 text-white px-4 py-2 rounded-lg hover:shadow-lg transition-shadow">
                   <Plus className="h-4 w-4 mr-2 inline" />
                   New Dataset
@@ -372,11 +372,11 @@ const Dashboard = () => {
               
               <div className="grid md:grid-cols-2 gap-6">
                 {recentDatasets.map((dataset) => (
-                  <div key={dataset.id} className="border border-gray-200 rounded-xl p-6 hover:border-primary-300 transition-colors">
+                  <div key={dataset.id} className="border border-white/10 rounded-xl p-6 hover:border-primary-300 transition-colors bg-slate-950">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex-1">
-                        <h4 className="text-lg font-semibold text-gray-900 mb-2">{dataset.name}</h4>
-                        <div className="flex items-center space-x-4 text-sm text-gray-500">
+                        <h4 className="text-lg font-semibold text-gray-100 mb-2">{dataset.name}</h4>
+                        <div className="flex items-center space-x-4 text-sm text-gray-400">
                           <span>Size: {dataset.size}</span>
                           <span>{dataset.downloads} downloads</span>
                         </div>

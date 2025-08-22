@@ -165,7 +165,7 @@ const DAOVoting = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+  <div className="bg-gradient-to-br from-black via-slate-900 to-black py-8 text-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -173,8 +173,8 @@ const DAOVoting = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-8"
         >
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">DAO Governance</h1>
-          <p className="text-gray-600">Participate in decentralized decision-making for the SciNet Vault platform</p>
+          <h1 className="text-3xl font-bold text-gray-100 mb-2">DAO Governance</h1>
+          <p className="text-gray-300">Participate in decentralized decision-making for the SciNet Vault platform</p>
         </motion.div>
 
         {/* DAO Stats */}
@@ -184,25 +184,25 @@ const DAOVoting = () => {
           transition={{ delay: 0.1 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8"
         >
-          <div className="bg-white rounded-xl p-6 shadow-lg text-center">
+          <div className="bg-slate-900 rounded-xl p-6 shadow-lg text-center border border-white/10">
             <Users className="h-8 w-8 text-blue-500 mx-auto mb-2" />
             <div className="text-2xl font-bold text-gray-900">{daoStats.totalMembers.toLocaleString()}</div>
             <div className="text-sm text-gray-600">DAO Members</div>
           </div>
           
-          <div className="bg-white rounded-xl p-6 shadow-lg text-center">
+          <div className="bg-slate-900 rounded-xl p-6 shadow-lg text-center border border-white/10">
             <Vote className="h-8 w-8 text-green-500 mx-auto mb-2" />
             <div className="text-2xl font-bold text-gray-900">{daoStats.activeProposals}</div>
             <div className="text-sm text-gray-600">Active Proposals</div>
           </div>
           
-          <div className="bg-white rounded-xl p-6 shadow-lg text-center">
+          <div className="bg-slate-900 rounded-xl p-6 shadow-lg text-center border border-white/10">
             <TrendingUp className="h-8 w-8 text-purple-500 mx-auto mb-2" />
             <div className="text-2xl font-bold text-gray-900">{daoStats.totalVotes.toLocaleString()}</div>
             <div className="text-sm text-gray-600">Total Votes Cast</div>
           </div>
           
-          <div className="bg-white rounded-xl p-6 shadow-lg text-center">
+          <div className="bg-slate-900 rounded-xl p-6 shadow-lg text-center border border-white/10">
             <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-2">
               <span className="text-white font-bold text-sm">₿</span>
             </div>
@@ -250,7 +250,7 @@ const DAOVoting = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 + index * 0.1 }}
-                className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
+                className="bg-slate-900 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/10"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
@@ -273,11 +273,11 @@ const DAOVoting = () => {
                     </div>
 
                     {/* Title and Description */}
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{proposal.title}</h3>
-                    <p className="text-gray-600 mb-4">{proposal.description}</p>
+                    <h3 className="text-xl font-bold text-gray-100 mb-2">{proposal.title}</h3>
+                    <p className="text-gray-300 mb-4">{proposal.description}</p>
 
                     {/* Meta Information */}
-                    <div className="flex items-center space-x-6 text-sm text-gray-500 mb-4">
+                    <div className="flex items-center space-x-6 text-sm text-gray-400 mb-4">
                       <div className="flex items-center">
                         <Users className="h-4 w-4 mr-1" />
                         <span>By {proposal.author}</span>
@@ -305,7 +305,7 @@ const DAOVoting = () => {
                     {/* Voting Progress */}
                     <div className="mb-4">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm font-medium text-gray-700">
+                        <span className="text-sm font-medium text-gray-300">
                           Voting Progress ({proposal.totalVotes.toLocaleString()}/{proposal.requiredVotes.toLocaleString()})
                         </span>
                         <span className="text-sm text-gray-500">{progress.toFixed(1)}%</span>

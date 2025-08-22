@@ -92,13 +92,13 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+  <div className="bg-gradient-to-br from-black via-slate-900 to-black py-8 text-gray-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Profile Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl p-8 shadow-lg mb-8"
+          className="bg-slate-900 rounded-2xl p-8 shadow-lg mb-8 border border-white/10"
         >
           <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
             {/* Avatar */}
@@ -109,17 +109,17 @@ const Profile = () => {
             {/* Basic Info */}
             <div className="flex-1">
               <div className="flex items-center space-x-3 mb-2">
-                <h1 className="text-2xl font-bold text-gray-900">{userData.name}</h1>
+                <h1 className="text-2xl font-bold text-gray-100">{userData.name}</h1>
                 <div className="flex items-center space-x-1">
                   <Shield className="h-5 w-5 text-blue-500" />
                   <span className="text-sm text-blue-600 font-medium">Verified</span>
                 </div>
               </div>
               
-              <p className="text-lg text-gray-600 mb-1">{userData.title}</p>
-              <p className="text-gray-500 mb-3">{userData.institution}</p>
+              <p className="text-lg text-gray-300 mb-1">{userData.title}</p>
+              <p className="text-gray-400 mb-3">{userData.institution}</p>
               
-              <div className="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+              <div className="flex items-center space-x-4 text-sm text-gray-400 mb-4">
                 <div className="flex items-center">
                   <Calendar className="h-4 w-4 mr-1" />
                   <span>Joined {userData.joinDate}</span>
@@ -136,7 +136,7 @@ const Profile = () => {
                 </div>
               </div>
 
-              <p className="text-gray-600 max-w-2xl">{userData.bio}</p>
+              <p className="text-gray-300 max-w-2xl">{userData.bio}</p>
             </div>
 
             {/* Actions */}
@@ -160,31 +160,31 @@ const Profile = () => {
           transition={{ delay: 0.1 }}
           className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8"
         >
-          <div className="bg-white rounded-xl p-4 shadow-lg text-center">
+          <div className="bg-slate-900 rounded-xl p-4 shadow-lg text-center border border-white/10">
             <FileText className="h-6 w-6 text-blue-500 mx-auto mb-2" />
             <div className="text-2xl font-bold text-gray-900">{userData.stats.papers}</div>
             <div className="text-sm text-gray-600">Papers</div>
           </div>
           
-          <div className="bg-white rounded-xl p-4 shadow-lg text-center">
+          <div className="bg-slate-900 rounded-xl p-4 shadow-lg text-center border border-white/10">
             <Database className="h-6 w-6 text-green-500 mx-auto mb-2" />
             <div className="text-2xl font-bold text-gray-900">{userData.stats.datasets}</div>
             <div className="text-sm text-gray-600">Datasets</div>
           </div>
           
-          <div className="bg-white rounded-xl p-4 shadow-lg text-center">
+          <div className="bg-slate-900 rounded-xl p-4 shadow-lg text-center border border-white/10">
             <TrendingUp className="h-6 w-6 text-orange-500 mx-auto mb-2" />
             <div className="text-2xl font-bold text-gray-900">{userData.stats.citations}</div>
             <div className="text-sm text-gray-600">Citations</div>
           </div>
           
-          <div className="bg-white rounded-xl p-4 shadow-lg text-center">
+          <div className="bg-slate-900 rounded-xl p-4 shadow-lg text-center border border-white/10">
             <Users className="h-6 w-6 text-purple-500 mx-auto mb-2" />
             <div className="text-2xl font-bold text-gray-900">{userData.stats.collaborations}</div>
             <div className="text-sm text-gray-600">Collaborations</div>
           </div>
           
-          <div className="bg-white rounded-xl p-4 shadow-lg text-center">
+          <div className="bg-slate-900 rounded-xl p-4 shadow-lg text-center border border-white/10">
             <Star className="h-6 w-6 text-yellow-500 mx-auto mb-2" />
             <div className="text-2xl font-bold text-gray-900">{userData.stats.reputation}</div>
             <div className="text-sm text-gray-600">Reputation</div>
@@ -227,8 +227,8 @@ const Profile = () => {
           {activeTab === 'overview' && (
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Research Interests */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Research Interests</h3>
+              <div className="bg-slate-900 rounded-2xl p-6 shadow-lg border border-white/10">
+                <h3 className="text-xl font-bold text-gray-100 mb-4">Research Interests</h3>
                 <div className="flex flex-wrap gap-2">
                   {userData.researchInterests.map((interest) => (
                     <span
@@ -242,7 +242,7 @@ const Profile = () => {
               </div>
 
               {/* Recent Activity */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
+              <div className="bg-slate-900 rounded-2xl p-6 shadow-lg border border-white/10">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">Recent Activity</h3>
                 <div className="space-y-4">
                   {userData.recentActivity.map((activity, index) => {
@@ -253,8 +253,8 @@ const Profile = () => {
                           <Icon className="h-4 w-4 text-gray-600" />
                         </div>
                         <div className="flex-1">
-                          <p className="font-medium text-gray-900">{activity.title}</p>
-                          <p className="text-sm text-gray-500">{activity.date}</p>
+                          <p className="font-medium text-gray-100">{activity.title}</p>
+                          <p className="text-sm text-gray-400">{activity.date}</p>
                         </div>
                       </div>
                     );
@@ -265,8 +265,8 @@ const Profile = () => {
           )}
 
           {activeTab === 'publications' && (
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Publications</h3>
+            <div className="bg-slate-900 rounded-2xl p-6 shadow-lg border border-white/10">
+              <h3 className="text-xl font-bold text-gray-100 mb-6">Publications</h3>
               <div className="space-y-6">
                 {userData.publications.map((pub) => (
                   <div key={pub.id} className="border-b border-gray-200 last:border-b-0 pb-6 last:pb-0">
@@ -280,8 +280,8 @@ const Profile = () => {
                           </span>
                           <span className="text-sm text-gray-500">{pub.date}</span>
                         </div>
-                        <h4 className="text-lg font-semibold text-gray-900 mb-2">{pub.title}</h4>
-                        <div className="flex items-center space-x-6 text-sm text-gray-500">
+                        <h4 className="text-lg font-semibold text-gray-100 mb-2">{pub.title}</h4>
+                        <div className="flex items-center space-x-6 text-sm text-gray-400">
                           <span>{pub.citations} citations</span>
                           <span>{pub.downloads} downloads</span>
                           <span className="capitalize">{pub.status}</span>
@@ -295,8 +295,8 @@ const Profile = () => {
           )}
 
           {activeTab === 'achievements' && (
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Achievements & Badges</h3>
+            <div className="bg-slate-900 rounded-2xl p-6 shadow-lg border border-white/10">
+              <h3 className="text-xl font-bold text-gray-100 mb-6">Achievements & Badges</h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {userData.achievements.map((achievement) => (
                   <div
@@ -321,8 +321,8 @@ const Profile = () => {
           )}
 
           {activeTab === 'activity' && (
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Activity Timeline</h3>
+            <div className="bg-slate-900 rounded-2xl p-6 shadow-lg border border-white/10">
+              <h3 className="text-xl font-bold text-gray-100 mb-6">Activity Timeline</h3>
               <div className="space-y-6">
                 {userData.recentActivity.map((activity, index) => {
                   const Icon = getActivityIcon(activity.type);

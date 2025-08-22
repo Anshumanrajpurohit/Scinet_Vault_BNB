@@ -133,7 +133,7 @@ const ResearchExplorer = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+  <div className="bg-gradient-to-br from-black via-slate-900 to-black py-8 text-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -150,7 +150,7 @@ const ResearchExplorer = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white rounded-2xl p-6 shadow-lg mb-8"
+          className="bg-slate-900 rounded-2xl p-6 shadow-lg mb-8 border border-white/10"
         >
           <div className="grid md:grid-cols-4 gap-4">
             {/* Search */}
@@ -162,7 +162,7 @@ const ResearchExplorer = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search research papers, datasets, authors..."
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 border border-white/10 bg-black text-gray-100 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>
             </div>
@@ -172,7 +172,7 @@ const ResearchExplorer = () => {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-white/10 bg-black text-gray-100 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 {categories.map(category => (
                   <option key={category} value={category}>
@@ -187,7 +187,7 @@ const ResearchExplorer = () => {
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-white/10 bg-black text-gray-100 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="all">All Types</option>
                 <option value="paper">Papers</option>
@@ -225,7 +225,7 @@ const ResearchExplorer = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + index * 0.1 }}
-              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-slate-900 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/10"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -264,7 +264,7 @@ const ResearchExplorer = () => {
                   </div>
 
                   {/* Title and Authors */}
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 hover:text-primary-600 cursor-pointer">
+                  <h3 className="text-xl font-bold text-gray-100 mb-2 hover:text-primary-400 cursor-pointer">
                     {item.title}
                   </h3>
                   
@@ -284,14 +284,14 @@ const ResearchExplorer = () => {
                   </div>
 
                   {/* Description */}
-                  <p className="text-gray-600 mb-4 line-clamp-2">{item.description}</p>
+                  <p className="text-gray-300 mb-4 line-clamp-2">{item.description}</p>
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2 mb-4">
                     {item.tags.map(tag => (
                       <span
                         key={tag}
-                        className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-md hover:bg-gray-200 cursor-pointer"
+                        className="px-2 py-1 bg-slate-800 text-gray-300 text-xs rounded-md hover:bg-slate-700 cursor-pointer"
                       >
                         {tag}
                       </span>
@@ -299,7 +299,7 @@ const ResearchExplorer = () => {
                   </div>
 
                   {/* Stats */}
-                  <div className="flex items-center space-x-6 text-sm text-gray-500">
+                  <div className="flex items-center space-x-6 text-sm text-gray-400">
                     <div className="flex items-center">
                       <Eye className="h-4 w-4 mr-1" />
                       <span>{item.views} views</span>
@@ -372,7 +372,7 @@ const ResearchExplorer = () => {
             transition={{ delay: 0.6 }}
             className="text-center mt-12"
           >
-            <button className="bg-white text-primary-600 border-2 border-primary-600 px-8 py-3 rounded-xl font-semibold hover:bg-primary-600 hover:text-white transition-all duration-300">
+            <button className="bg-black text-primary-300 border-2 border-primary-900/40 px-8 py-3 rounded-xl font-semibold hover:bg-white/10 hover:text-white transition-all duration-300">
               Load More Research
             </button>
           </motion.div>

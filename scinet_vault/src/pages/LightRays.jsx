@@ -49,6 +49,8 @@ const LightRays = ({
   mouseInfluence = 0.1,
   noiseAmount = 0.0,
   distortion = 0.0,
+  offsetX = 0,
+  offsetY = 0,
   className = "",
 }) => {
   const containerRef = useRef(null);
@@ -219,7 +221,7 @@ void main() {
       const mesh = new Mesh(gl, { geometry, program });
       meshRef.current = mesh;
 
-      const updatePlacement = () => {
+  const updatePlacement = () => {
         if (!containerRef.current || !renderer) return;
 
         renderer.dpr = Math.min(window.devicePixelRatio, 2);
@@ -233,8 +235,11 @@ void main() {
 
         uniforms.iResolution.value = [w, h];
 
-        const { anchor, dir } = getAnchorAndDir(raysOrigin, w, h);
-        uniforms.rayPos.value = anchor;
+  const { anchor, dir } = getAnchorAndDir(raysOrigin, w, h);
+  // Apply pixel offsets (CSS px) scaled by dpr
+  const ox = (offsetX || 0) * dpr;
+  const oy = (offsetY || 0) * dpr;
+  uniforms.rayPos.value = [anchor[0] + ox, anchor[1] + oy];
         uniforms.rayDir.value = dir;
       };
 
@@ -345,10 +350,12 @@ void main() {
     u.noiseAmount.value = noiseAmount;
     u.distortion.value = distortion;
 
-    const { clientWidth: wCSS, clientHeight: hCSS } = containerRef.current;
-    const dpr = renderer.dpr;
-    const { anchor, dir } = getAnchorAndDir(raysOrigin, wCSS * dpr, hCSS * dpr);
-    u.rayPos.value = anchor;
+  const { clientWidth: wCSS, clientHeight: hCSS } = containerRef.current;
+  const dpr = renderer.dpr;
+  const { anchor, dir } = getAnchorAndDir(raysOrigin, wCSS * dpr, hCSS * dpr);
+  const ox = (offsetX || 0) * dpr;
+  const oy = (offsetY || 0) * dpr;
+  u.rayPos.value = [anchor[0] + ox, anchor[1] + oy];
     u.rayDir.value = dir;
   }, [
     raysColor,
@@ -362,6 +369,8 @@ void main() {
     mouseInfluence,
     noiseAmount,
     distortion,
+  offsetX,
+  offsetY,
   ]);
 
   useEffect(() => {

@@ -162,7 +162,7 @@ const AppRoutesWithBackground = () => {
   return (
     <>
       {showRays && (
-        <div className="fixed inset-0 z-0" aria-hidden="true">
+    <div className="fixed inset-0 z-0" aria-hidden="true">
           <LightRays
             raysOrigin="top-center"
             raysColor="#00ffff"
@@ -173,11 +173,12 @@ const AppRoutesWithBackground = () => {
             mouseInfluence={0.1}
             noiseAmount={0.1}
             distortion={0.05}
+      offsetY={120}
             className="custom-rays"
           />
         </div>
       )}
-  <div className={'relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 pb-10 flex-1'}>
+  <div className={'relative z-10   mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 pb-10 flex-1'}>
         <AnimatePresence mode="wait">
           <Routes>
               {/* Public landing page */}

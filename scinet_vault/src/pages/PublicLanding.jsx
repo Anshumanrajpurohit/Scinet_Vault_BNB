@@ -47,7 +47,7 @@ const PublicLanding = () => {
   ];
 
   return (
-  <div>
+  <div className="min-h-[calc(100vh-4rem)]">{/* ensure above-fold section fills screen minus navbar height */}
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 text-white">
         <MagicBackground />
@@ -146,7 +146,7 @@ const PublicLanding = () => {
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
+              className="text-4xl md:text-5xl font-bold text-gray-100 mb-4"
             >
               Powered by Web3 Technology
             </motion.h2>
@@ -154,7 +154,7 @@ const PublicLanding = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-xl text-gray-600 max-w-3xl mx-auto"
+              className="text-xl text-gray-300 max-w-3xl mx-auto"
             >
               Experience the next generation of scientific research infrastructure
             </motion.p>
@@ -173,8 +173,8 @@ const PublicLanding = () => {
                 <div className="bg-gradient-to-r from-primary-600 to-purple-500 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                   <feature.icon className="h-7 w-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl font-bold text-gray-100 mb-3">{feature.title}</h3>
+                <p className="text-gray-300 leading-relaxed">{feature.description}</p>
                 
                 {/* Shimmer Effect */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">

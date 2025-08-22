@@ -27,6 +27,11 @@ body {
   min-height: 100vh;
   background: #000;
   color: rgba(255,255,255,0.92);
+  overflow-x: hidden; /* prevent horizontal scroll from off-screen effects */
+}
+
+html, #root {
+  height: 100%;
 }
 
 /* Layout ratio tweaks */

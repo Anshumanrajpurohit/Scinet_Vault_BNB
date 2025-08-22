@@ -36,7 +36,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-slate-900 text-white mt-auto">
+    <footer className="relative bg-slate-900 text-white mt-auto overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Section */}
@@ -107,8 +107,8 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-transparent to-slate-900/5 pointer-events-none"></div>
+  {/* Gradient overlay scoped to footer only */}
+  <div className="absolute inset-0 bg-gradient-to-t from-transparent to-slate-900/5 pointer-events-none"></div>
     </footer>
   );
 };

@@ -121,7 +121,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-  <div className="bg-gradient-to-br from-black via-slate-900 to-black text-gray-100">
+  <div className="min-h-screen flex flex-col bg-gradient-to-br from-black via-slate-900 to-black text-gray-100">
           <Navbar />
           <AnimatePresence mode="wait">
             <Routes>

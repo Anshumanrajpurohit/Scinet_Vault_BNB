@@ -62,6 +62,14 @@ html, #root {
   100% { transform: translate3d(0,0,0) scale(1); }
 }
 
+/* Simple button styles referenced by components */
+.btn-primary { background: linear-gradient(135deg, #7c3aed, #22d3ee); border: 1px solid rgba(255,255,255,0.15); }
+.btn-primary:hover { filter: brightness(1.05); }
+.btn-secondary { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); }
+.text-gradient { background: linear-gradient(90deg, #22d3ee, #a78bfa); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.glass-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(8px); }
+.shadow-glass { box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;

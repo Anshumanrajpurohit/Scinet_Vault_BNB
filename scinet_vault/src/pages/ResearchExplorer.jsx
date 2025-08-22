@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Search, 
@@ -15,6 +15,9 @@ import {
   ExternalLink,
   Star
 } from 'lucide-react';
+import { useAppData } from '../context/AppDataContext';
+import ReproScoreBadge from '../components/ReproScoreBadge';
+import { useNavigate } from 'react-router-dom';
 
 const ResearchExplorer = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -22,8 +25,11 @@ const ResearchExplorer = () => {
   const [selectedType, setSelectedType] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
 
-  // Mock research data
-  const researchData = [
+  const { data } = useAppData();
+  const navigate = useNavigate();
+
+  // Seed list + user uploads from context
+  const researchData = useMemo(() => [
     {
       id: 1,
       type: 'paper',
@@ -88,7 +94,25 @@ const ResearchExplorer = () => {
       isVerified: false,
       isPremium: false,
     },
-  ];
+    // Map context researches
+    ...data.researches.map(r => ({
+      id: r.id,
+      type: r.type,
+      title: r.title,
+      authors: r.authors?.length ? r.authors : ['You'],
+      description: r.description || '',
+      category: r.category || 'Other',
+      tags: r.tags || [],
+      publishDate: r.createdAt?.slice(0,10) || new Date().toISOString().slice(0,10),
+      views: 0,
+      downloads: 0,
+      likes: 0,
+      rating: r.versions?.[0]?.score ? Math.round((r.versions[0].score/20 + 3) * 10)/10 : 4.5,
+      isVerified: !!r.isVerified,
+      isPremium: false,
+      latestScore: r.versions?.[0]?.score,
+    }))
+  ], [data]);
 
   const categories = [
     'all', 'Computer Science', 'Biology', 'Chemistry', 'Physics', 
@@ -264,7 +288,7 @@ const ResearchExplorer = () => {
                   </div>
 
                   {/* Title and Authors */}
-                  <h3 className="text-xl font-bold text-gray-100 mb-2 hover:text-primary-400 cursor-pointer">
+                  <h3 onClick={()=>navigate(`/research/${item.id}`)} className="text-xl font-bold text-gray-100 mb-2 hover:text-primary-400 cursor-pointer">
                     {item.title}
                   </h3>
                   
@@ -316,6 +340,9 @@ const ResearchExplorer = () => {
                       <Star className="h-4 w-4 mr-1 text-yellow-500 fill-current" />
                       <span>{item.rating}</span>
                     </div>
+                    {typeof item.latestScore === 'number' && (
+                      <ReproScoreBadge score={item.latestScore} />
+                    )}
                   </div>
                 </div>
 

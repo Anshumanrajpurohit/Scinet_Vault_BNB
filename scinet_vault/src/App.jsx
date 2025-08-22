@@ -2,6 +2,7 @@ import React, { useState, useEffect, createContext, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import './App.css';
+import { AppDataProvider } from './context/AppDataContext';
 
 // Context for wallet and authentication
 const AuthContext = createContext();
@@ -16,6 +17,16 @@ import Upload from './pages/Upload';
 import ResearchExplorer from './pages/ResearchExplorer';
 import Profile from './pages/Profile';
 import DAOVoting from './pages/DAOVoting';
+import ResearchDetail from './pages/ResearchDetail';
+import VersionHistory from './pages/VersionHistory';
+import VersionDiff from './pages/VersionDiff';
+import PeerReviews from './pages/PeerReviews';
+import ReviewDetail from './pages/ReviewDetail';
+import Quests from './pages/Quests';
+import CreateQuest from './pages/CreateQuest';
+import QuestDetail from './pages/QuestDetail';
+import NotebookRunner from './pages/NotebookRunner';
+import Collaborate from './pages/Collaborate';
 
 // Web3 wallet connection logic
 const useWallet = () => {
@@ -120,6 +131,7 @@ const ProtectedRoute = ({ children }) => {
 function App() {
   return (
     <AuthProvider>
+      <AppDataProvider>
       <Router>
   <div className="min-h-screen flex flex-col bg-gradient-to-br from-black via-slate-900 to-black text-gray-100">
           <Navbar />
@@ -183,11 +195,94 @@ function App() {
                   </ProtectedRoute>
                 } 
               />
+
+              {/* New feature routes */}
+              <Route 
+                path="/research/:id" 
+                element={
+                  <ProtectedRoute>
+                    <ResearchDetail />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/research/:id/versions" 
+                element={
+                  <ProtectedRoute>
+                    <VersionHistory />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/research/:id/diff" 
+                element={
+                  <ProtectedRoute>
+                    <VersionDiff />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/reviews" 
+                element={
+                  <ProtectedRoute>
+                    <PeerReviews />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/reviews/:id" 
+                element={
+                  <ProtectedRoute>
+                    <ReviewDetail />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/quests" 
+                element={
+                  <ProtectedRoute>
+                    <Quests />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/quests/new" 
+                element={
+                  <ProtectedRoute>
+                    <CreateQuest />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/quests/:id" 
+                element={
+                  <ProtectedRoute>
+                    <QuestDetail />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/notebooks/:cid" 
+                element={
+                  <ProtectedRoute>
+                    <NotebookRunner />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/collaborate/:id" 
+                element={
+                  <ProtectedRoute>
+                    <Collaborate />
+                  </ProtectedRoute>
+                } 
+              />
             </Routes>
           </AnimatePresence>
           <Footer />
         </div>
       </Router>
+      </AppDataProvider>
     </AuthProvider>
   );
 }

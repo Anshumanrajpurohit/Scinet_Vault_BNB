@@ -2,7 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Database, Users, Zap, CheckCircle, Star } from 'lucide-react';
 import { useAuth } from '../App';
-import MagicBackground from '../components/MagicBackground';
+import BackgroundBeams from '../components/magicui/BackgroundBeams';
+import Aurora from '../components/magicui/Aurora';
 
 const PublicLanding = () => {
   const { connectWallet, isLoading } = useAuth();
@@ -50,7 +51,8 @@ const PublicLanding = () => {
   <div className="min-h-[calc(100vh-4rem)]">{/* ensure above-fold section fills screen minus navbar height */}
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 text-white">
-        <MagicBackground />
+        <BackgroundBeams />
+        <Aurora />
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-10 left-10 w-32 h-32 bg-primary-500/30 rounded-full blur-3xl animate-float"></div>
           <div className="absolute top-40 right-20 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>

@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+/* Base tweaks and custom color tokens */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  /* Primary color scale used by custom classes below */
+  --primary-50: #f5f3ff;
+  --primary-100: #ede9fe;
+  --primary-200: #ddd6fe;
+  --primary-300: #c4b5fd;
+  --primary-400: #a78bfa;
+  --primary-500: #8b5cf6;
+  --primary-600: #7c3aed;
+  --primary-700: #6d28d9;
+}
+body { margin: 0; min-width: 320px; min-height: 100vh; }
+
+/* Custom utility-like classes used throughout the app */
+.text-gradient {
+  background-image: linear-gradient(90deg, var(--primary-600), #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.btn-primary { background-image: linear-gradient(90deg, var(--primary-600), #a855f7); }
+.btn-secondary { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
+.glass-card { background: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); }
+.glass-nav { backdrop-filter: blur(12px); }
+.shadow-glass { box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+
+/* Minimal mappings for Tailwind-like primary classes */
+.text-primary-600 { color: var(--primary-600); }
+.text-primary-700 { color: var(--primary-700); }
+.hover\:text-primary-600:hover { color: var(--primary-600); }
+.hover\:text-primary-700:hover { color: var(--primary-700); }
+.border-primary-500 { border-color: var(--primary-500); }
+.border-primary-300 { border-color: var(--primary-300); }
+.border-primary-200 { border-color: var(--primary-200); }
+.hover\:border-primary-300:hover { border-color: var(--primary-300); }
+.bg-primary-50 { background-color: var(--primary-50); }
+.bg-primary-100 { background-color: var(--primary-100); }
+.bg-primary-500\/10 { background-color: rgba(139, 92, 246, 0.10); }
+.bg-primary-500\/5 { background-color: rgba(139, 92, 246, 0.05); }
+.from-primary-600 { --tw-gradient-from: var(--primary-600); --tw-gradient-to: rgb(124 58 237 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+.from-primary-500\/5 { --tw-gradient-from: rgba(139, 92, 246, 0.05); --tw-gradient-to: rgba(139, 92, 246, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+
+
+/* Floating animation used in several pages */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+.animate-float { animation: float 6s ease-in-out infinite; }
+
+/* Pulse ring helper */
+.pulse-ring { position: relative; }
+.pulse-ring::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 9999px;
+  border: 2px solid rgba(139,92,246,0.35);
+  animation: pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 1 }
+  70% { transform: scale(1.15); opacity: 0 }
+  100% { transform: scale(0.95); opacity: 0 }
+}

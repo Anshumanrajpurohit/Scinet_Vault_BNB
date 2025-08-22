@@ -1,7 +1,19 @@
 import { motion } from 'framer-motion'
 import Button from '../components/Button'
+import FeatureCard from '../components/FeatureCard'
+import Steps from '../components/Steps'
+import LogosMarquee from '../components/LogosMarquee'
+import CTABanner from '../components/CTABanner'
+import ResearchMiniCard from '../components/ResearchMiniCard'
 
 export default function Landing() {
+  const trending = Array.from({ length: 6 }).map((_, i) => ({
+    id: i+1,
+    title: `Verifiable Paper ${i+1}`,
+    authors: 'Lee et al.',
+    verified: i % 2 === 0,
+  }))
+
   return (
     <div className="relative overflow-hidden">
       <AnimatedBackground />
@@ -31,6 +43,39 @@ export default function Landing() {
               <div className="text-white/70 text-sm">{label}</div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-14 text-left">
+          <h2 className="text-xl font-semibold">Why SciNet Vault</h2>
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <FeatureCard icon="🔗" title="On-chain Provenance" description="Immutable timestamps and signatures ensure authenticity." />
+            <FeatureCard icon="🧪" title="Reproducibility" description="Datasets linked to code and versions for transparent reuse." />
+            <FeatureCard icon="🛡️" title="Trust & Governance" description="DAO-driven reviews and funding power community science." />
+          </div>
+        </div>
+
+        <div className="mt-14 text-left">
+          <h2 className="text-xl font-semibold">How it works</h2>
+          <div className="mt-4">
+            <Steps />
+          </div>
+        </div>
+
+        <div className="mt-14 text-left">
+          <h2 className="text-xl font-semibold">Trending research</h2>
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+            {trending.map(t => (
+              <ResearchMiniCard key={t.id} title={t.title} authors={t.authors} verified={t.verified} />
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-14">
+          <LogosMarquee />
+        </div>
+
+        <div className="mt-14">
+          <CTABanner />
         </div>
       </div>
     </div>

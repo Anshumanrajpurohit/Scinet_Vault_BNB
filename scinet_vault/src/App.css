@@ -1,8 +1,7 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  /* Let the app span the full viewport; layout handled via Tailwind/classes */
+  width: 100%;
+  min-height: 100%;
 }
 
 .logo {

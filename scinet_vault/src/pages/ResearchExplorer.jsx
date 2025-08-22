@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Search, 
@@ -15,6 +15,9 @@ import {
   ExternalLink,
   Star
 } from 'lucide-react';
+import { useAppData } from '../context/AppDataContext';
+import ReproScoreBadge from '../components/ReproScoreBadge';
+import { useNavigate } from 'react-router-dom';
 
 const ResearchExplorer = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -22,8 +25,11 @@ const ResearchExplorer = () => {
   const [selectedType, setSelectedType] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
 
-  // Mock research data
-  const researchData = [
+  const { data } = useAppData();
+  const navigate = useNavigate();
+
+  // Seed list + user uploads from context
+  const researchData = useMemo(() => [
     {
       id: 1,
       type: 'paper',
@@ -88,7 +94,25 @@ const ResearchExplorer = () => {
       isVerified: false,
       isPremium: false,
     },
-  ];
+    // Map context researches
+    ...data.researches.map(r => ({
+      id: r.id,
+      type: r.type,
+      title: r.title,
+      authors: r.authors?.length ? r.authors : ['You'],
+      description: r.description || '',
+      category: r.category || 'Other',
+      tags: r.tags || [],
+      publishDate: r.createdAt?.slice(0,10) || new Date().toISOString().slice(0,10),
+      views: 0,
+      downloads: 0,
+      likes: 0,
+      rating: r.versions?.[0]?.score ? Math.round((r.versions[0].score/20 + 3) * 10)/10 : 4.5,
+      isVerified: !!r.isVerified,
+      isPremium: false,
+      latestScore: r.versions?.[0]?.score,
+    }))
+  ], [data]);
 
   const categories = [
     'all', 'Computer Science', 'Biology', 'Chemistry', 'Physics', 
@@ -133,16 +157,16 @@ const ResearchExplorer = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="py-8 text-gray-100 bg-transparent">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-8"
         >
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Research Explorer</h1>
-          <p className="text-gray-600">Discover verified research papers and datasets from the global scientific community</p>
+          <h1 className="text-3xl font-bold text-white mb-2">Research Explorer</h1>
+          <p className="text-white">Discover verified research papers and datasets from the global scientific community</p>
         </motion.div>
 
         {/* Search and Filters */}
@@ -150,20 +174,20 @@ const ResearchExplorer = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white rounded-2xl p-6 shadow-lg mb-8"
+          className="glass-card rounded-2xl p-6 shadow-lg mb-8 border border-white/10"
         >
           <div className="grid md:grid-cols-4 gap-4">
             {/* Search */}
             <div className="md:col-span-2">
               <div className="relative">
-                <Search className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search research papers, datasets, authors..."
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                />
+                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                            <input
+                              type="text"
+                              value={searchQuery}
+                              onChange={(e) => setSearchQuery(e.target.value)}
+                              placeholder="Search research papers, datasets, authors..."
+                              className="w-full pl-10 pr-4 py-3 border border-white/10 bg-transparent backdrop-blur text-gray-100 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                            />
               </div>
             </div>
 
@@ -172,7 +196,7 @@ const ResearchExplorer = () => {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                            className="w-full px-4 py-3 border border-white/10 bg-transparent backdrop-blur text-gray-100 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 {categories.map(category => (
                   <option key={category} value={category}>
@@ -187,7 +211,7 @@ const ResearchExplorer = () => {
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                            className="w-full px-4 py-3 border border-white/10 bg-transparent backdrop-blur text-gray-100 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="all">All Types</option>
                 <option value="paper">Papers</option>
@@ -225,7 +249,7 @@ const ResearchExplorer = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + index * 0.1 }}
-              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="glass-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/10"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -264,7 +288,7 @@ const ResearchExplorer = () => {
                   </div>
 
                   {/* Title and Authors */}
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 hover:text-primary-600 cursor-pointer">
+                  <h3 onClick={()=>navigate(`/research/${item.id}`)} className="text-xl font-bold text-gray-100 mb-2 hover:text-primary-400 cursor-pointer">
                     {item.title}
                   </h3>
                   
@@ -284,14 +308,14 @@ const ResearchExplorer = () => {
                   </div>
 
                   {/* Description */}
-                  <p className="text-gray-600 mb-4 line-clamp-2">{item.description}</p>
+                  <p className="text-gray-300 mb-4 line-clamp-2">{item.description}</p>
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2 mb-4">
                     {item.tags.map(tag => (
                       <span
                         key={tag}
-                        className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-md hover:bg-gray-200 cursor-pointer"
+                        className="px-2 py-1 bg-slate-800 text-gray-300 text-xs rounded-md hover:bg-slate-700 cursor-pointer"
                       >
                         {tag}
                       </span>
@@ -299,7 +323,7 @@ const ResearchExplorer = () => {
                   </div>
 
                   {/* Stats */}
-                  <div className="flex items-center space-x-6 text-sm text-gray-500">
+                  <div className="flex items-center space-x-6 text-sm text-gray-400">
                     <div className="flex items-center">
                       <Eye className="h-4 w-4 mr-1" />
                       <span>{item.views} views</span>
@@ -316,6 +340,9 @@ const ResearchExplorer = () => {
                       <Star className="h-4 w-4 mr-1 text-yellow-500 fill-current" />
                       <span>{item.rating}</span>
                     </div>
+                    {typeof item.latestScore === 'number' && (
+                      <ReproScoreBadge score={item.latestScore} />
+                    )}
                   </div>
                 </div>
 
@@ -325,7 +352,7 @@ const ResearchExplorer = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleDownload(item.id)}
-                    className="bg-gradient-to-r from-primary-600 to-purple-500 text-white px-4 py-2 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-300 flex items-center space-x-2"
+                    className="text-xl px-10 py-4 border-none outline-none rounded-md cursor-pointer uppercase bg-gray-900 text-gray-100 font-bold transition-all duration-600 shadow-[0px_0px_60px_#1f4c65] scale-100 active:scale-95 hover:bg-gradient-to-r hover:from-[rgba(2,29,78,0.681)] hover:to-[rgba(31,215,232,0.873)] hover:text-[#040426] transform origin-center flex items-center space-x-2"
                   >
                     <Download className="h-4 w-4" />
                     <span>Download</span>
@@ -372,7 +399,7 @@ const ResearchExplorer = () => {
             transition={{ delay: 0.6 }}
             className="text-center mt-12"
           >
-            <button className="bg-white text-primary-600 border-2 border-primary-600 px-8 py-3 rounded-xl font-semibold hover:bg-primary-600 hover:text-white transition-all duration-300">
+            <button className="text-xl px-10 py-4 border-none outline-none rounded-md cursor-pointer uppercase bg-gray-900 text-gray-100 font-bold transition-all duration-600 shadow-[0px_0px_60px_#1f4c65] scale-100 active:scale-95 hover:bg-gradient-to-r hover:from-[rgba(2,29,78,0.681)] hover:to-[rgba(31,215,232,0.873)] hover:text-[#040426] transform origin-center">
               Load More Research
             </button>
           </motion.div>

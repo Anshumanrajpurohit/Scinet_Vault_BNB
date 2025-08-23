@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Search, 
@@ -16,6 +16,7 @@ import {
   Star
 } from 'lucide-react';
 import { useAppData } from '../context/AppDataContext';
+import { SupabaseService } from '../services/SupabaseService';
 import ReproScoreBadge from '../components/ReproScoreBadge';
 import { useNavigate } from 'react-router-dom';
 
@@ -27,92 +28,47 @@ const ResearchExplorer = () => {
 
   const { data } = useAppData();
   const navigate = useNavigate();
+  const [dbItems, setDbItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  // Seed list + user uploads from context
-  const researchData = useMemo(() => [
-    {
-      id: 1,
-      type: 'paper',
-      title: 'Quantum Computing Applications in Cryptography',
-      authors: ['Dr. Sarah Chen', 'Prof. Michael Johnson'],
-      description: 'A comprehensive study on the applications of quantum computing in modern cryptographic systems and their implications for cybersecurity.',
-      category: 'Computer Science',
-      tags: ['quantum computing', 'cryptography', 'cybersecurity'],
-      publishDate: '2025-08-20',
-      views: 1250,
-      downloads: 89,
-      likes: 45,
-      rating: 4.8,
-      isVerified: true,
-      isPremium: false,
-    },
-    {
-      id: 2,
-      type: 'dataset',
-      title: 'COVID-19 Genomic Sequences Dataset',
-      authors: ['Dr. Emily Rodriguez', 'Dr. James Park'],
-      description: 'Complete genomic sequences of COVID-19 variants collected from 50+ countries between 2020-2025.',
-      category: 'Biology',
-      tags: ['covid-19', 'genomics', 'variants', 'epidemiology'],
-      publishDate: '2025-08-18',
-      views: 2340,
-      downloads: 156,
-      likes: 78,
-      rating: 4.9,
-      isVerified: true,
-      isPremium: true,
-    },
-    {
-      id: 3,
-      type: 'paper',
-      title: 'Machine Learning for Climate Prediction Models',
-      authors: ['Prof. David Wilson', 'Dr. Anna Liu'],
-      description: 'Novel approaches using deep learning and neural networks for improved accuracy in long-term climate predictions.',
-      category: 'Environmental Science',
-      tags: ['machine learning', 'climate', 'prediction', 'AI'],
-      publishDate: '2025-08-15',
-      views: 890,
-      downloads: 67,
-      likes: 34,
-      rating: 4.6,
-      isVerified: true,
-      isPremium: false,
-    },
-    {
-      id: 4,
-      type: 'paper',
-      title: 'Blockchain Implementation in Healthcare Data Management',
-      authors: ['Dr. Alex Thompson'],
-      description: 'Exploring the potential of blockchain technology for secure and interoperable healthcare data management systems.',
-      category: 'Medicine',
-      tags: ['blockchain', 'healthcare', 'data management', 'security'],
-      publishDate: '2025-08-12',
-      views: 567,
-      downloads: 43,
-      likes: 22,
-      rating: 4.4,
-      isVerified: false,
-      isPremium: false,
-    },
-    // Map context researches
-    ...data.researches.map(r => ({
-      id: r.id,
-      type: r.type,
-      title: r.title,
-      authors: r.authors?.length ? r.authors : ['You'],
-      description: r.description || '',
-      category: r.category || 'Other',
-      tags: r.tags || [],
-      publishDate: r.createdAt?.slice(0,10) || new Date().toISOString().slice(0,10),
-      views: 0,
-      downloads: 0,
-      likes: 0,
-      rating: r.versions?.[0]?.score ? Math.round((r.versions[0].score/20 + 3) * 10)/10 : 4.5,
-      isVerified: !!r.isVerified,
-      isPremium: false,
-      latestScore: r.versions?.[0]?.score,
-    }))
-  ], [data]);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        if (SupabaseService.isConfigured()) {
+          const rows = await SupabaseService.listResearch({ limit: 200 });
+          if (!cancelled) setDbItems(rows);
+        } else {
+          if (!cancelled) setError('Storage not configured');
+        }
+      } catch (e) {
+        if (!cancelled) setError(e?.message || 'Failed to load');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => { cancelled = true };
+  }, []);
+
+  // Source only from DB (Supabase)
+  const researchData = useMemo(() => dbItems.map(row => ({
+    id: row.id,
+    type: row.type || 'paper',
+    title: row.title,
+    authors: Array.isArray(row.authors) && row.authors.length ? row.authors : ['Unknown'],
+    description: row.description || '',
+    category: row.category || 'Other',
+    tags: Array.isArray(row.tags) ? row.tags : [],
+    publishDate: (row.created_at || new Date().toISOString()).slice(0,10),
+    views: row.views || 0,
+    downloads: row.downloads || 0,
+    likes: row.likes || 0,
+    rating: 4.5,
+    isVerified: !!row.is_verified,
+    isPremium: false,
+    publicUrl: row.public_url,
+  })), [dbItems]);
 
   const categories = [
     'all', 'Computer Science', 'Biology', 'Chemistry', 'Physics', 
@@ -148,9 +104,7 @@ const ResearchExplorer = () => {
     console.log('Liked research:', id);
   };
 
-  const handleDownload = (id) => {
-    console.log('Download research:', id);
-  };
+  // No download in list view per request
 
   const handleShare = (id) => {
     console.log('Share research:', id);
@@ -252,7 +206,7 @@ const ResearchExplorer = () => {
               className="glass-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/10"
             >
               <div className="flex items-start justify-between">
-                <div className="flex-1">
+                <div className="flex-1" onClick={() => navigate(`/research/${item.id}`)}>
                   {/* Header */}
                   <div className="flex items-center space-x-3 mb-3">
                     <div className={`p-2 rounded-lg ${
@@ -346,18 +300,8 @@ const ResearchExplorer = () => {
                   </div>
                 </div>
 
-                {/* Actions */}
+                {/* Actions (no Download in list) */}
                 <div className="flex flex-col space-y-2 ml-6">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => handleDownload(item.id)}
-                    className="text-xl px-10 py-4 border-none outline-none rounded-md cursor-pointer uppercase bg-gray-900 text-gray-100 font-bold transition-all duration-600 shadow-[0px_0px_60px_#1f4c65] scale-100 active:scale-95 hover:bg-gradient-to-r hover:from-[rgba(2,29,78,0.681)] hover:to-[rgba(31,215,232,0.873)] hover:text-[#040426] transform origin-center flex items-center space-x-2"
-                  >
-                    <Download className="h-4 w-4" />
-                    <span>Download</span>
-                  </motion.button>
-                  
                   <div className="flex space-x-2">
                     <motion.button
                       whileHover={{ scale: 1.1 }}

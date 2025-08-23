@@ -30,6 +30,8 @@ import QuestDetail from './pages/QuestDetail';
 import NotebookRunner from './pages/NotebookRunner';
 import Collaborate from './pages/Collaborate';
 import Analyzer from './pages/Analyzer';
+import SuiDashboard from './components/SuiDashboard';
+import { TokenProvider } from './context/TokenContext';
 
 // Web3 wallet connection logic
 const useWallet = () => {
@@ -89,13 +91,15 @@ function App() {
   return (
     <AuthProvider>
       <AppDataProvider>
+      <TokenProvider>
       <Router>
   <div className="min-h-screen flex flex-col bg-transparent text-gray-100">
           <Navbar />
           <AppRoutesWithBackground />
         </div>
-      </Router>
-      </AppDataProvider>
+  </Router>
+  </TokenProvider>
+  </AppDataProvider>
     </AuthProvider>
   );
 }
@@ -202,6 +206,15 @@ const AppRoutesWithBackground = () => {
                 element={
                   <ProtectedRoute>
                     <Analyzer />
+                  </ProtectedRoute>
+                } 
+              />
+
+              <Route 
+                path="/sui" 
+                element={
+                  <ProtectedRoute>
+                    <SuiDashboard />
                   </ProtectedRoute>
                 } 
               />

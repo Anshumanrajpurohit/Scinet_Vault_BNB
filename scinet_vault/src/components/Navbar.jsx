@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Wallet, Menu, X, Home, Upload, User, Vote, MessageSquare, Trophy, Search } from 'lucide-react';
+import { Wallet, Menu, X, Home, Upload, User, Vote, MessageSquare, Trophy, Search, Coins } from 'lucide-react';
 import { useAuth } from '../App';
 import logo from '../assets/a-logo-design-featuring-a-stylized-white_OObO0aVcRJKqHHTJqngY9A_j7cZB1JLSoiaFK2-C5ZTuQ-removebg-preview.png';
 
@@ -29,6 +29,7 @@ const Navbar = () => {
     { name: 'Dashboard', path: '/dashboard', icon: Home, authRequired: true },
     { name: 'Upload', path: '/upload', icon: Upload, authRequired: true },
     { name: 'Explore', path: '/explore', icon: Search, authRequired: true },
+  { name: 'SUI', path: '/sui', icon: Coins, authRequired: true },
   { name: 'Reviews', path: '/reviews', icon: MessageSquare, authRequired: true },
   { name: 'Quests', path: '/quests', icon: Trophy, authRequired: true },
     { name: 'Profile', path: '/profile', icon: User, authRequired: true },

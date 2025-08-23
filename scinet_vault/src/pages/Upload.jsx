@@ -1,13 +1,25 @@
+<<<<<<< Updated upstream
 import React, { useState, useCallback, useRef } from 'react';
+=======
+import React, { useState } from 'react';
+import { ethers } from 'ethers';
+>>>>>>> Stashed changes
 import { useNavigate } from 'react-router-dom';
 import { Upload as UploadIcon, FileText, Database, Image, X, CheckCircle, AlertCircle } from 'lucide-react';
 import { ReproScoreService } from '../services/ReproScoreService';
 import { StorageService } from '../services/StorageService';
+import { SupabaseService } from '../services/SupabaseService';
 import { useAppData } from '../context/AppDataContext';
+import { useAuth } from '../App';
+import SuiTokenABI from '../abi/SuiTokenABI.json';
+
+const SUI_CONTRACT = '0xd9145CCE52D386f254917e481eB44e9943F39138';
+const BNB_TESTNET_CHAIN_HEX = '0x61';
 
 const Upload = () => {
 	const navigate = useNavigate();
 	const { addResearch, addVersion } = useAppData();
+	const { walletAddress } = useAuth();
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [authors, setAuthors] = useState('');
@@ -17,10 +29,16 @@ const Upload = () => {
 	const [files, setFiles] = useState([]);
 	const [dragActive, setDragActive] = useState(false);
 	const [submitting, setSubmitting] = useState(false);
+<<<<<<< Updated upstream
 	const [error, setError] = useState('');
 	const [reproScore, setReproScore] = useState(null);
 	const [scoreDetails, setScoreDetails] = useState(null);
 	const fileInputRef = useRef(null);
+=======
+	const [rewardTx, setRewardTx] = useState('');
+	const [rewardError, setRewardError] = useState('');
+	const [toast, setToast] = useState('');
+>>>>>>> Stashed changes
 
 	// File handling functions
 	const handleFiles = useCallback((newFiles) => {
@@ -124,6 +142,7 @@ const Upload = () => {
 		
 		setSubmitting(true);
 		try {
+	setToast('Submitting…');
 			// Build a simple manifest
 			const manifest = {
 				title, description, category, type,
@@ -131,6 +150,7 @@ const Upload = () => {
 				authors: authors.split(',').map(a => a.trim()).filter(Boolean),
 				files: files.map(f => ({ name: f.name, size: f.size })),
 			};
+<<<<<<< Updated upstream
 			
 			// Use enhanced reproducibility scoring
 			const analysis = await ReproScoreService.analyzeManifest(manifest);
@@ -159,12 +179,30 @@ const Upload = () => {
 			}
 
 			const ref = await StorageService.put(manifest, { prefix: 'research-manifests' });
+=======
+						const { score, diagnostics } = ReproScoreService.analyzeManifest(manifest);
+						const ref = await StorageService.put(manifest, { prefix: 'research-manifests' });
+
+						// If a PDF is included, upload to Supabase storage + table
+						let supabaseInfo = null
+						const pdfFile = files.find(f => f.type === 'application/pdf')
+						if (SupabaseService.isConfigured() && pdfFile) {
+							try {
+								const formPayload = { title, description, category, type, tags: manifest.tags, authors: manifest.authors }
+								const up = await SupabaseService.uploadPdfAndMetadata({ file: pdfFile, form: formPayload, pathPrefix: `research/${title.replace(/[^a-z0-9-_]/gi,'_')}` })
+								supabaseInfo = { publicUrl: up.publicUrl, dbRowId: up.row?.id }
+							} catch (e) {
+								console.warn('Supabase upload failed:', e?.message)
+							}
+						}
+>>>>>>> Stashed changes
 
 			const researchId = addResearch({
 				title, description, category, type,
 				tags: manifest.tags, authors: manifest.authors,
 				isVerified: false,
 			});
+<<<<<<< Updated upstream
 			
 			const storageRef = ref?.provider === 'greenfield'
 				? { provider: 'greenfield', bucket: ref.bucket, key: ref.key, url: ref.url }
@@ -181,6 +219,52 @@ const Upload = () => {
 			navigate(`/research/${researchId}`);
 		} catch (err) {
 			setError(`Upload failed: ${err.message}`);
+=======
+						const storageRef = ref?.provider === 'greenfield'
+							? { provider: 'greenfield', bucket: ref.bucket, key: ref.key, url: ref.url }
+							: { provider: 'none', cid: ref?.cid }
+						addVersion(researchId, { storageRef, manifest, score, diagnostics, supabase: supabaseInfo });
+
+			// Attempt token reward for upload
+			setRewardTx('');
+			setRewardError('');
+						try {
+				if (typeof window !== 'undefined' && window.ethereum && walletAddress) {
+					const provider = new ethers.BrowserProvider(window.ethereum);
+					// Ensure BNB Testnet
+					try {
+						await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: BNB_TESTNET_CHAIN_HEX }] });
+					} catch (_) { /* ignore if already on testnet or no permission */ }
+					await provider.send('eth_requestAccounts', []);
+					const signer = await provider.getSigner();
+					const contract = new ethers.Contract(SUI_CONTRACT, SuiTokenABI, signer);
+					const tx = await contract.rewardUser(walletAddress);
+					const rec = await tx.wait();
+										const hash = rec?.hash || tx?.hash || ''
+										setRewardTx(hash);
+
+										// Query updated balance and show in toast
+										try {
+											const dec = await contract.decimals?.() ?? 18
+											const bal = await contract.balanceOf(walletAddress)
+											const formatted = ethers.formatUnits(bal, Number(dec))
+											setToast(`You received 100 SUI 🎉 New balance: ${formatted}`)
+										} catch {
+											setToast('You received 100 SUI 🎉')
+										}
+
+										// Notify other pages to refresh SUI balance
+										try { window.dispatchEvent(new CustomEvent('sui:balance-bump', { detail: { delta: 100 } })) } catch {}
+										try { window.dispatchEvent(new CustomEvent('sui:balance-updated', { detail: { reason: 'upload-reward' } })) } catch {}
+				}
+			} catch (re) {
+				setRewardError(re?.reason || re?.message || 'Reward failed');
+			}
+
+      // brief delay so the toast is visible
+      await new Promise(r => setTimeout(r, 1200));
+      navigate(`/research/${researchId}`);
+>>>>>>> Stashed changes
 		} finally {
 			setSubmitting(false);
 		}
@@ -380,7 +464,20 @@ const Upload = () => {
 					<button type="submit" disabled={submitting} className="btn-primary text-white px-6 py-2 rounded-lg">
 						{submitting ? 'Submitting...' : 'Submit & Analyze'}
 					</button>
+					{rewardTx && (
+						<div className="text-xs text-gray-400 mt-2 break-all">Reward tx: {rewardTx}</div>
+					)}
+					{rewardError && (
+						<div className="text-xs text-red-400 mt-2 break-all">{rewardError}</div>
+					)}
 				</form>
+
+				{/* Bottom toast */}
+				{toast && (
+					<div className="fixed bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-lg bg-black/80 text-gray-100 border border-white/10 shadow-xl">
+						{toast}
+					</div>
+				)}
 			</div>
 		</div>
 	);

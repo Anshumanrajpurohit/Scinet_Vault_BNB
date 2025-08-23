@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../App';
 import Prism from './Prism';
 
-
 const PublicLanding = () => {
   const { connectWallet, isLoading, isConnected } = useAuth();
   const navigate = useNavigate();
@@ -57,29 +56,57 @@ const PublicLanding = () => {
   ];
 
   return (
-  <div className="min-h-[calc(100vh-4rem)]">{/* ensure above-fold section fills screen minus navbar height */}
-      {/* Hero Section */}
-  <section className="relative overflow-visible text-white">
-    {/* Prism background */}
-    <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
-      <Prism
-        animationType="rotate"
-        timeScale={0.5}
-        height={3.5}
-        baseWidth={5.5}
-        scale={3.6}
-        hueShift={0}
-        colorFrequency={1}
-        noise={0.5}
-        glow={1}
-      />
-    </div>
-        
-  <div className="relative z-10   mx-auto px-4 sm:px-6 lg:px-8 py-28 h-screen">
+    <div className="min-h-[calc(100vh-4rem)]">
+      {/* Background Animation Section - Full Screen */}
+      <section className="relative overflow-visible h-screen">
+        {/* Prism background */}
+        <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
+          <Prism
+            animationType="rotate"
+            timeScale={0.5}
+            height={3.5}
+            baseWidth={5.5}
+            scale={3.6}
+            hueShift={0}
+            colorFrequency={1}
+            noise={0.5}
+            glow={1}
+          />
+        </div>
+          
+        {/* Initial Welcome Content - Minimal */}
+        <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-28 h-screen flex items-center justify-center">
+          <div className="text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.5 }}
+              className="text-2xl md:text-3xl font-light text-white/80"
+            >
+              Welcome to the Future of Science
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.5, delay: 1.5 }}
+              className="mt-8"
+            >
+              <div className="animate-bounce">
+                <ArrowRight className="h-8 w-8 text-white/60 mx-auto rotate-90" />
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Hero Content Section - Moved to Top Position */}
+      <section className="relative py-20 text-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               className="text-5xl md:text-7xl font-bold mb-6"
             >
@@ -91,7 +118,7 @@ const PublicLanding = () => {
             
             <motion.p
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed"
             >
@@ -101,7 +128,7 @@ const PublicLanding = () => {
             
             <motion.div
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
@@ -132,13 +159,11 @@ const PublicLanding = () => {
             </motion.div>
           </div>
         </div>
-
-  {/* Floating elements removed */}
       </section>
 
-    {/* Stats Section */}
-  <section className="py-16">
-        <div className="  mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Stats Section */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <motion.div
@@ -158,9 +183,9 @@ const PublicLanding = () => {
         </div>
       </section>
 
-    {/* Features Section */}
-  <section id="features" className="py-24 scroll-mt-24">
-        <div className="  mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Features Section */}
+      <section id="features" className="py-24 scroll-mt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
@@ -205,9 +230,9 @@ const PublicLanding = () => {
         </div>
       </section>
 
-    {/* Benefits Section */}
-  <section className="py-20">
-        <div className="  mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Benefits Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <motion.h2
@@ -263,8 +288,8 @@ const PublicLanding = () => {
         </div>
       </section>
 
-  {/* CTA Section */}
-  <section className="py-20 text-white">
+      {/* CTA Section */}
+      <section className="py-20 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}

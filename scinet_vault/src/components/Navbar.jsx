@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Wallet, Menu, X, Home, Upload, User, Vote, MessageSquare, Trophy, Search } from 'lucide-react';
 import { useAuth } from '../App';
-import logo from '../assets/logo.png';
+import logo from '../assets/a-logo-design-featuring-a-stylized-white_OObO0aVcRJKqHHTJqngY9A_j7cZB1JLSoiaFK2-C5ZTuQ-removebg-preview.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,10 +14,9 @@ const Navbar = () => {
   const handleWalletConnect = async () => {
     if (!isConnected) {
       await connectWallet();
-      // Redirect to welcome page after successful connection
-      navigate('/welcome');
+      navigate('/dashboard');
     } else {
-      disconnectWallet();
+      await disconnectWallet();
       navigate('/');
     }
   };
@@ -84,7 +83,7 @@ const Navbar = () => {
               whileTap={{ scale: 0.95 }}
               onClick={handleWalletConnect}
               disabled={isLoading}
-              className="btn-primary text-white px-6 py-2.5 rounded-2xl font-semibold shadow-lg hover:shadow-primary transition-all duration-400 hidden md:inline-flex items-center space-x-2 relative overflow-hidden"
+              className="btn-primary text-white px-6 py-2.5 rounded-2xl font-semibold shadow-lg hover:shadow-primary transition-all duration-400 hidden md:inline-flex items-center space-x-2 relative"
             >
               <Wallet className="h-4 w-4" />
               <span>

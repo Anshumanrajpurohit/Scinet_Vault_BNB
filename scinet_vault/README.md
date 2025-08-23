@@ -1,3 +1,25 @@
+## Summarization API (/api/analyze/summarize-base64)
+
+- POST /api/analyze/summarize-base64
+- Request (PDF):
+	{ "sourceType": "pdf", "data": "<base64-pdf>", "options": { "summaryStyle": "bullets", "maxPoints": 6, "maxChars": 50000 } }
+- Request (Text):
+	{ "sourceType": "text", "data": "Raw text...", "options": { "summaryStyle": "paragraph" } }
+- Response:
+	{ "summary": "- Point 1\n- Point 2", "tokensEstimated": 1200, "meta": { "charsProcessed": 48231, "sourceType": "pdf" } }
+- Errors:
+	{ "error": { "code": "INVALID_INPUT", "message": "File is not a valid PDF (missing PDF header)" } }
+
+Env:
+- LLM_PROVIDER=gemini|openai|none
+- LLM_MODEL=gemini-1.5-flash or gpt-4o-mini
+- LLM_API_KEY=your_key
+- MAX_BASE64_SIZE_BYTES=20000000
+
+Dev:
+- Start API: npm run api
+- Start UI + proxy: npm run dev (or run both with npm run dev:all)
+
 # Sample Hardhat 3 Beta Project (`node:test` and `viem`)
 
 This project showcases a Hardhat 3 Beta project using the native Node.js test runner (`node:test`) and the `viem` library for Ethereum interactions.

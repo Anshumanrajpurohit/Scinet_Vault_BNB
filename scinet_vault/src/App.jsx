@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import './App.css';
 import { AppDataProvider } from './context/AppDataContext';
 import LightRays from './pages/LightRays';
+import { usePrivy } from '@privy-io/react-auth';
 
 // Context for wallet and authentication
 const AuthContext = createContext();
@@ -28,77 +29,32 @@ import CreateQuest from './pages/CreateQuest';
 import QuestDetail from './pages/QuestDetail';
 import NotebookRunner from './pages/NotebookRunner';
 import Collaborate from './pages/Collaborate';
+import Analyzer from './pages/Analyzer';
 
 // Web3 wallet connection logic
 const useWallet = () => {
-  const [isConnected, setIsConnected] = useState(false);
-  const [walletAddress, setWalletAddress] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const { login, logout, ready, authenticated, user, connecting } = usePrivy();
+  const isConnected = ready && authenticated;
+  const walletAddress = user?.wallet?.address || '';
+  const isLoading = connecting || !ready;
 
   const connectWallet = async () => {
-    if (typeof window.ethereum !== 'undefined') {
-      try {
-        setIsLoading(true);
-        const accounts = await window.ethereum.request({
-          method: 'eth_requestAccounts',
-        });
-        
-        if (accounts.length > 0) {
-          setWalletAddress(accounts[0]);
-          setIsConnected(true);
-          localStorage.setItem('walletConnected', 'true');
-          localStorage.setItem('walletAddress', accounts[0]);
-        }
-      } catch (error) {
-        console.error('Error connecting wallet:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    } else {
-      alert('Please install MetaMask to use this application');
+    try {
+      await login();
+    } catch (e) {
+      console.error('Privy login failed', e);
     }
   };
 
-  const disconnectWallet = () => {
-    setIsConnected(false);
-    setWalletAddress('');
-    localStorage.removeItem('walletConnected');
-    localStorage.removeItem('walletAddress');
+  const disconnectWallet = async () => {
+    try {
+      await logout();
+    } catch (e) {
+      console.error('Privy logout failed', e);
+    }
   };
 
-  // Check for existing connection on load
-  useEffect(() => {
-    const checkConnection = async () => {
-      const savedConnection = localStorage.getItem('walletConnected');
-      const savedAddress = localStorage.getItem('walletAddress');
-      
-      if (savedConnection === 'true' && savedAddress) {
-        if (typeof window.ethereum !== 'undefined') {
-          try {
-            const accounts = await window.ethereum.request({
-              method: 'eth_accounts',
-            });
-            if (accounts.includes(savedAddress)) {
-              setWalletAddress(savedAddress);
-              setIsConnected(true);
-            }
-          } catch (error) {
-            console.error('Error checking wallet connection:', error);
-          }
-        }
-      }
-    };
-
-    checkConnection();
-  }, []);
-
-  return {
-    isConnected,
-    walletAddress,
-    isLoading,
-    connectWallet,
-    disconnectWallet,
-  };
+  return { isConnected, walletAddress, isLoading, connectWallet, disconnectWallet };
 };
 
 // Auth Provider Component
@@ -241,6 +197,15 @@ const AppRoutesWithBackground = () => {
               />
 
               {/* New feature routes */}
+              <Route 
+                path="/analyzer" 
+                element={
+                  <ProtectedRoute>
+                    <Analyzer />
+                  </ProtectedRoute>
+                } 
+              />
+
               <Route 
                 path="/research/:id" 
                 element={

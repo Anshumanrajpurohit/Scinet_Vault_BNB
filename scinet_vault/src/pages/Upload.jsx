@@ -31,14 +31,17 @@ const Upload = () => {
 				files: files.map(f => ({ name: f.name, size: f.size })),
 			};
 			const { score, diagnostics } = ReproScoreService.analyzeManifest(manifest);
-			const { cid } = await StorageService.put(manifest);
+			const ref = await StorageService.put(manifest, { prefix: 'research-manifests' });
 
 			const researchId = addResearch({
 				title, description, category, type,
 				tags: manifest.tags, authors: manifest.authors,
 				isVerified: false,
 			});
-			addVersion(researchId, { cid, manifest, score, diagnostics });
+						const storageRef = ref?.provider === 'greenfield'
+							? { provider: 'greenfield', bucket: ref.bucket, key: ref.key, url: ref.url }
+							: { provider: 'none', cid: ref?.cid }
+						addVersion(researchId, { storageRef, manifest, score, diagnostics });
 
 			navigate(`/research/${researchId}`);
 		} finally {

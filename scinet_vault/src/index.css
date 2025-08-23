@@ -34,6 +34,17 @@ html, #root {
   height: 100%;
 }
 
+/* Ensure global containers do not clip third-party modals */
+html, body, #root {
+  overflow: visible;
+  position: static;
+}
+
+#root {
+  isolation: isolate; /* create a new stacking context for app content only */
+  z-index: 0;
+}
+
 /* Removed magic-ui background effects (.magic-beam and magic-float) */
 
 /* Simple button styles referenced by components */
@@ -49,33 +60,41 @@ h1 {
   line-height: 1.1;
 }
 
-/* Global button style (requested “Watch” style) */
-button {
-  font-size: 1.25rem !important; /* text-xl */
-  padding: 1rem 2.5rem !important; /* py-4 px-10 */
-  border: none !important; /* border-none */
-  outline: none !important; /* outline-none */
-  border-radius: 0.375rem !important; /* rounded-md */
-  cursor: pointer !important; /* cursor-pointer */
-  text-transform: uppercase !important; /* uppercase */
-  background-color: #111827 !important; /* bg-gray-900 */
-  color: #f3f4f6 !important; /* text-gray-100 */
-  font-weight: 700 !important; /* font-bold */
-  transition: all 600ms !important; /* transition-all duration-600 */
-  box-shadow: 0 0 60px #1f4c65 !important; /* shadow-[0px_0px_60px_#1f4c65] */
-  transform-origin: center !important; /* origin-center */
-  transform: scale(1) !important; /* scale-100 */
+/* App-scoped button style to avoid breaking third-party modals (e.g., Privy) */
+.app-root button {
+  font-size: 1.25rem; /* text-xl */
+  padding: 1rem 2.5rem; /* py-4 px-10 */
+  border: none; /* border-none */
+  outline: none; /* outline-none */
+  border-radius: 0.375rem; /* rounded-md */
+  cursor: pointer; /* cursor-pointer */
+  text-transform: uppercase; /* uppercase */
+  background-color: #111827; /* bg-gray-900 */
+  color: #f3f4f6; /* text-gray-100 */
+  font-weight: 700; /* font-bold */
+  transition: all 600ms; /* transition-all duration-600 */
+  box-shadow: 0 0 60px #1f4c65; /* shadow-[0px_0px_60px_#1f4c65] */
+  transform-origin: center; /* origin-center */
+  transform: scale(1); /* scale-100 */
 }
-button:active {
-  transform: scale(0.95) !important; /* active:scale-95 */
+.app-root button:active {
+  transform: scale(0.95); /* active:scale-95 */
 }
-button:hover {
+.app-root button:hover {
   background-image: linear-gradient(
     to right,
     rgba(2, 29, 78, 0.681),
     rgba(31, 215, 232, 0.873)
-  ) !important; /* hover:bg-gradient-to-r from/to */
-  color: #040426 !important; /* hover:text-[#040426] */
+  ); /* hover:bg-gradient-to-r from/to */
+  color: #040426; /* hover:text-[#040426] */
 }
 
 /* Force dark theme across app */
+
+/* Privy popup fixes: allow full-screen overlay above app */
+.privy-container, .privy-portal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483647 !important; /* above any app z-index */
+  pointer-events: auto;
+}

@@ -108,7 +108,7 @@ const Dashboard = () => {
   };
 
   return (
-  <div className="bg-transparent py-8 relative overflow-hidden text-gray-100">
+  <div className="bg-transparent py-8 relative text-gray-100">
   {/* Background elements removed to let LightRays show through */}
 
       <div className="relative   mx-auto px-4 sm:px-6 lg:px-8">
@@ -138,7 +138,7 @@ const Dashboard = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="group glass-card rounded-3xl p-6 hover:shadow-xl transition-all duration-500 relative overflow-hidden border border-white/10"
+                className="group glass-card rounded-3xl p-6 hover:shadow-xl transition-all duration-500 relative border border-white/10"
             >
               <div className="flex items-center justify-between">
                 <div>
@@ -178,7 +178,7 @@ const Dashboard = () => {
                 whileHover={{ scale: 1.02, y: -5 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={action.action}
-                className="group glass-card rounded-3xl p-6 hover:shadow-xl transition-all duration-500 cursor-pointer relative overflow-hidden border border-white/10"
+                className="group glass-card rounded-3xl p-6 hover:shadow-xl transition-all duration-500 cursor-pointer relative border border-white/10"
               >
                 <div className={`bg-gradient-to-r ${action.color} w-14 h-14 rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                   <action.icon className="h-7 w-7 text-white" />

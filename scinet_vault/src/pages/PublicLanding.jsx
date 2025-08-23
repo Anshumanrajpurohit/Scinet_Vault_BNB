@@ -1,11 +1,21 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Database, Users, Zap, CheckCircle, Star } from 'lucide-react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../App';
 import Prism from './Prism';
 
 
 const PublicLanding = () => {
-  const { connectWallet, isLoading } = useAuth();
+  const { connectWallet, isLoading, isConnected } = useAuth();
+  const navigate = useNavigate();
+
+  // Redirect to dashboard once wallet is connected
+  useEffect(() => {
+    if (isConnected) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [isConnected, navigate]);
 
   const features = [
     {
@@ -49,7 +59,7 @@ const PublicLanding = () => {
   return (
   <div className="min-h-[calc(100vh-4rem)]">{/* ensure above-fold section fills screen minus navbar height */}
       {/* Hero Section */}
-  <section className="relative overflow-hidden text-white">
+  <section className="relative overflow-visible text-white">
     {/* Prism background */}
     <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
       <Prism
@@ -100,7 +110,7 @@ const PublicLanding = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={connectWallet}
                 disabled={isLoading}
-                className="btn-primary text-white px-8 py-4 rounded-2xl text-lg font-semibold shadow-2xl hover:shadow-primary transition-all duration-400 flex items-center justify-center space-x-2 relative overflow-hidden"
+                className="btn-primary text-white px-8 py-4 rounded-2xl text-lg font-semibold shadow-2xl hover:shadow-primary transition-all duration-400 flex items-center justify-center space-x-2 relative"
               >
                 <span>{isLoading ? 'Connecting...' : 'Get Started'}</span>
                 <ArrowRight className="h-5 w-5" />
@@ -177,7 +187,7 @@ const PublicLanding = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ y: -8, scale: 1.02 }}
-                className="group glass-card rounded-3xl p-8 hover:shadow-xl transition-all duration-500 relative overflow-hidden"
+                className="group glass-card rounded-3xl p-8 hover:shadow-xl transition-all duration-500 relative"
               >
                 <div className="bg-gradient-to-r from-primary-600 to-purple-500 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                   <feature.icon className="h-7 w-7 text-white" />

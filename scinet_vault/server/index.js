@@ -1,10 +1,6 @@
 /* Express API for base64 summarization */
 import express from 'express'
-<<<<<<< Updated upstream
-// Import the internal implementation to avoid the package's CJS index debug block
-=======
 // Import the implementation directly to avoid side-effect debug code in pdf-parse/index.js
->>>>>>> Stashed changes
 import pdf from 'pdf-parse/lib/pdf-parse.js'
 
 const app = express()

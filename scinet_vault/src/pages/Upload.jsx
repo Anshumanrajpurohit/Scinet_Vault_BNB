@@ -1,9 +1,4 @@
-<<<<<<< Updated upstream
 import React, { useState, useCallback, useRef } from 'react';
-=======
-import React, { useState } from 'react';
-import { ethers } from 'ethers';
->>>>>>> Stashed changes
 import { useNavigate } from 'react-router-dom';
 import { Upload as UploadIcon, FileText, Database, Image, X, CheckCircle, AlertCircle } from 'lucide-react';
 import { ReproScoreService } from '../services/ReproScoreService';
@@ -29,16 +24,13 @@ const Upload = () => {
 	const [files, setFiles] = useState([]);
 	const [dragActive, setDragActive] = useState(false);
 	const [submitting, setSubmitting] = useState(false);
-<<<<<<< Updated upstream
 	const [error, setError] = useState('');
 	const [reproScore, setReproScore] = useState(null);
 	const [scoreDetails, setScoreDetails] = useState(null);
 	const fileInputRef = useRef(null);
-=======
 	const [rewardTx, setRewardTx] = useState('');
 	const [rewardError, setRewardError] = useState('');
 	const [toast, setToast] = useState('');
->>>>>>> Stashed changes
 
 	// File handling functions
 	const handleFiles = useCallback((newFiles) => {
@@ -142,7 +134,7 @@ const Upload = () => {
 		
 		setSubmitting(true);
 		try {
-	setToast('Submitting…');
+			setToast('Submitting…');
 			// Build a simple manifest
 			const manifest = {
 				title, description, category, type,
@@ -150,7 +142,6 @@ const Upload = () => {
 				authors: authors.split(',').map(a => a.trim()).filter(Boolean),
 				files: files.map(f => ({ name: f.name, size: f.size })),
 			};
-<<<<<<< Updated upstream
 			
 			// Use enhanced reproducibility scoring
 			const analysis = await ReproScoreService.analyzeManifest(manifest);
@@ -179,57 +170,44 @@ const Upload = () => {
 			}
 
 			const ref = await StorageService.put(manifest, { prefix: 'research-manifests' });
-=======
-						const { score, diagnostics } = ReproScoreService.analyzeManifest(manifest);
-						const ref = await StorageService.put(manifest, { prefix: 'research-manifests' });
 
-						// If a PDF is included, upload to Supabase storage + table
-						let supabaseInfo = null
-						const pdfFile = files.find(f => f.type === 'application/pdf')
-						if (SupabaseService.isConfigured() && pdfFile) {
-							try {
-								const formPayload = { title, description, category, type, tags: manifest.tags, authors: manifest.authors }
-								const up = await SupabaseService.uploadPdfAndMetadata({ file: pdfFile, form: formPayload, pathPrefix: `research/${title.replace(/[^a-z0-9-_]/gi,'_')}` })
-								supabaseInfo = { publicUrl: up.publicUrl, dbRowId: up.row?.id }
-							} catch (e) {
-								console.warn('Supabase upload failed:', e?.message)
-							}
-						}
->>>>>>> Stashed changes
+			// If a PDF is included, upload to Supabase storage + table (optional)
+			let supabaseInfo = null;
+			const pdfFile = files.find(f => f.type === 'application/pdf');
+			if (SupabaseService.isConfigured && typeof SupabaseService.isConfigured === 'function' && SupabaseService.isConfigured() && pdfFile) {
+				try {
+					const formPayload = { title, description, category, type, tags: manifest.tags, authors: manifest.authors };
+					const up = await SupabaseService.uploadPdfAndMetadata({ file: pdfFile, form: formPayload, pathPrefix: `research/${title.replace(/[^a-z0-9-_]/gi,'_')}` });
+					supabaseInfo = { publicUrl: up.publicUrl, dbRowId: up.row?.id };
+				} catch (e) {
+					console.warn('Supabase upload failed:', e?.message);
+				}
+			}
 
 			const researchId = addResearch({
 				title, description, category, type,
 				tags: manifest.tags, authors: manifest.authors,
 				isVerified: false,
 			});
-<<<<<<< Updated upstream
-			
+
 			const storageRef = ref?.provider === 'greenfield'
 				? { provider: 'greenfield', bucket: ref.bucket, key: ref.key, url: ref.url }
-				: { provider: 'none', cid: ref?.cid }
-				
+				: { provider: 'none', cid: ref?.cid };
 			addVersion(researchId, { 
 				storageRef, 
 				manifest, 
 				score: analysis.score, 
 				diagnostics: analysis.diagnostics,
-				scoreDetails: analysis // Include full analysis
+				scoreDetails: analysis,
+				supabase: supabaseInfo
 			});
 
-			navigate(`/research/${researchId}`);
-		} catch (err) {
-			setError(`Upload failed: ${err.message}`);
-=======
-						const storageRef = ref?.provider === 'greenfield'
-							? { provider: 'greenfield', bucket: ref.bucket, key: ref.key, url: ref.url }
-							: { provider: 'none', cid: ref?.cid }
-						addVersion(researchId, { storageRef, manifest, score, diagnostics, supabase: supabaseInfo });
-
-			// Attempt token reward for upload
+			// Attempt token reward for upload (optional, guarded dynamic import)
 			setRewardTx('');
 			setRewardError('');
-						try {
+			try {
 				if (typeof window !== 'undefined' && window.ethereum && walletAddress) {
+					const { ethers } = await import('ethers');
 					const provider = new ethers.BrowserProvider(window.ethereum);
 					// Ensure BNB Testnet
 					try {
@@ -240,31 +218,32 @@ const Upload = () => {
 					const contract = new ethers.Contract(SUI_CONTRACT, SuiTokenABI, signer);
 					const tx = await contract.rewardUser(walletAddress);
 					const rec = await tx.wait();
-										const hash = rec?.hash || tx?.hash || ''
-										setRewardTx(hash);
+					const hash = rec?.hash || tx?.hash || '';
+					setRewardTx(hash);
 
-										// Query updated balance and show in toast
-										try {
-											const dec = await contract.decimals?.() ?? 18
-											const bal = await contract.balanceOf(walletAddress)
-											const formatted = ethers.formatUnits(bal, Number(dec))
-											setToast(`You received 100 SUI 🎉 New balance: ${formatted}`)
-										} catch {
-											setToast('You received 100 SUI 🎉')
-										}
+					// Query updated balance and show in toast
+					try {
+						const dec = (await contract.decimals?.()) ?? 18;
+						const bal = await contract.balanceOf(walletAddress);
+						const formatted = ethers.formatUnits(bal, Number(dec));
+						setToast(`You received 100 SUI 🎉 New balance: ${formatted}`);
+					} catch {
+						setToast('You received 100 SUI 🎉');
+					}
 
-										// Notify other pages to refresh SUI balance
-										try { window.dispatchEvent(new CustomEvent('sui:balance-bump', { detail: { delta: 100 } })) } catch {}
-										try { window.dispatchEvent(new CustomEvent('sui:balance-updated', { detail: { reason: 'upload-reward' } })) } catch {}
+					// Notify other pages to refresh SUI balance
+					try { window.dispatchEvent(new CustomEvent('sui:balance-bump', { detail: { delta: 100 } })) } catch {}
+					try { window.dispatchEvent(new CustomEvent('sui:balance-updated', { detail: { reason: 'upload-reward' } })) } catch {}
 				}
 			} catch (re) {
 				setRewardError(re?.reason || re?.message || 'Reward failed');
 			}
 
-      // brief delay so the toast is visible
-      await new Promise(r => setTimeout(r, 1200));
-      navigate(`/research/${researchId}`);
->>>>>>> Stashed changes
+			// brief delay so the toast is visible
+			await new Promise(r => setTimeout(r, 1200));
+			navigate(`/research/${researchId}`);
+		} catch (err) {
+			setError(`Upload failed: ${err.message}`);
 		} finally {
 			setSubmitting(false);
 		}

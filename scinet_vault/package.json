@@ -18,12 +18,9 @@
     "@privy-io/react-auth": "^2.21.4",
     "@supabase/supabase-js": "^2.56.0",
     "@tailwindcss/vite": "^4.1.12",
-<<<<<<< Updated upstream
     "buffer": "^6.0.3",
-=======
-    "ethers": "^6.15.0",
->>>>>>> Stashed changes
     "express": "^4.19.2",
+  "ethers": "^6.13.4",
     "framer-motion": "^11.11.17",
     "lucide-react": "^0.474.0",
     "ogl": "^1.0.11",

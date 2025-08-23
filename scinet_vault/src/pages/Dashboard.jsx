@@ -74,30 +74,6 @@ const Dashboard = () => {
     },
   ];
 
-  const quickActions = [
-    {
-      title: 'Upload Research Paper',
-      description: 'Share your latest findings',
-      icon: Upload,
-      action: () => console.log('Upload paper'),
-      color: 'from-blue-500 to-blue-600',
-    },
-    {
-      title: 'Create Dataset',
-      description: 'Upload research data',
-      icon: Database,
-      action: () => console.log('Create dataset'),
-      color: 'from-green-500 to-green-600',
-    },
-    {
-      title: 'Start Collaboration',
-      description: 'Invite researchers',
-      icon: Users,
-      action: () => console.log('Start collaboration'),
-      color: 'from-purple-500 to-purple-600',
-    },
-  ];
-
   const getStatusColor = (status) => {
     switch (status) {
       case 'Published': return 'bg-green-100 text-green-800';
@@ -156,46 +132,6 @@ const Dashboard = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Quick Actions */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mb-8"
-        >
-          <h2 className="text-2xl font-bold text-gray-100 mb-6">
-            Quick Actions
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {quickActions.map((action, index) => (
-              <motion.div
-                key={action.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + index * 0.1 }}
-                whileHover={{ scale: 1.02, y: -5 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={action.action}
-                className="group glass-card rounded-3xl p-6 hover:shadow-xl transition-all duration-500 cursor-pointer relative border border-white/10"
-              >
-                <div className={`bg-gradient-to-r ${action.color} w-14 h-14 rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                  <action.icon className="h-7 w-7 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-100 mb-2">{action.title}</h3>
-                <p className="text-gray-300 leading-relaxed">{action.description}</p>
-                
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-purple-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                
-                {/* Shimmer Effect */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </motion.div>
 
         {/* Tabs */}

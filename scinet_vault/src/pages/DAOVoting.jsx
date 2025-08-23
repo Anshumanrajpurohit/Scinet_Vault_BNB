@@ -186,28 +186,28 @@ const DAOVoting = () => {
         >
           <div className="glass-card rounded-xl p-6 shadow-lg text-center border border-white/10">
             <Users className="h-8 w-8 text-blue-500 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">{daoStats.totalMembers.toLocaleString()}</div>
-            <div className="text-sm text-gray-600">DAO Members</div>
+            <div className="text-2xl font-bold text-white">{daoStats.totalMembers.toLocaleString()}</div>
+            <div className="text-sm text-gray-300">DAO Members</div>
           </div>
           
           <div className="glass-card rounded-xl p-6 shadow-lg text-center border border-white/10">
             <Vote className="h-8 w-8 text-green-500 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">{daoStats.activeProposals}</div>
-            <div className="text-sm text-gray-600">Active Proposals</div>
+            <div className="text-2xl font-bold text-white">{daoStats.activeProposals}</div>
+            <div className="text-sm text-gray-300">Active Proposals</div>
           </div>
           
           <div className="glass-card rounded-xl p-6 shadow-lg text-center border border-white/10">
             <TrendingUp className="h-8 w-8 text-purple-500 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">{daoStats.totalVotes.toLocaleString()}</div>
-            <div className="text-sm text-gray-600">Total Votes Cast</div>
+            <div className="text-2xl font-bold text-white">{daoStats.totalVotes.toLocaleString()}</div>
+            <div className="text-sm text-gray-300">Total Votes Cast</div>
           </div>
           
           <div className="glass-card rounded-xl p-6 shadow-lg text-center border border-white/10">
             <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-2">
               <span className="text-white font-bold text-sm">₿</span>
             </div>
-            <div className="text-2xl font-bold text-gray-900">{daoStats.treasuryValue}</div>
-            <div className="text-sm text-gray-600">Treasury Value</div>
+            <div className="text-2xl font-bold text-white">{daoStats.treasuryValue}</div>
+            <div className="text-sm text-gray-300">Treasury Value</div>
           </div>
         </motion.div>
 

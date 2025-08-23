@@ -186,7 +186,7 @@ const Upload = () => {
 		}
 	};	return (
 		<div className="bg-transparent py-8 text-gray-100">
-			<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<h1 className="text-3xl font-bold text-gray-100 mb-4">Upload Research</h1>
 			<form onSubmit={handleSubmit} className="space-y-4 glass-card p-6 rounded-2xl border border-white/10">
 					<div>

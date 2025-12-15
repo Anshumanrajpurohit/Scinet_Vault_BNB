@@ -5,6 +5,7 @@
 ## Overview
 
 **SciNet Vault** is the world’s first blockchain-powered scientific reproducibility platform, designed to ensure research data and results are immutable, transparent, and tamper-proof. By leveraging Binance’s BNB Greenfield for decentralized file storage and integrating AI-driven reproducibility scoring, SciNet Vault aims to restore trust in scientific research by drastically reducing bias, incentivizing peer review, and rewarding validated contributions with its native platform token, **Svi**.
+
 📖 **[Read the Complete Project Description](PROJECT_DESCRIPTION.md)** - Comprehensive overview of this major innovation in scientific research technology.
 
 ---
